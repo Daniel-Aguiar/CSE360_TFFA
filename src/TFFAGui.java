@@ -19,7 +19,6 @@ public class TFFAGui {
 		fileIOPanel.add(inputLabel, c);
 
 		/* Add some space in the middle column of this panel */
-		/**/
 		c = new GridBagConstraints();
 		c.ipadx = 150;
 		c.gridx = 1;
