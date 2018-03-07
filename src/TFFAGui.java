@@ -6,6 +6,7 @@ import javax.swing.border.*;
 public class TFFAGui {
 	private static boolean RESIZABLE = false;
 
+	
 	public static void createFilePane(Container pane, GridBagConstraints arrangement) {
 		JPanel fileIOPanel = new JPanel(new GridBagLayout());
 
@@ -18,6 +19,7 @@ public class TFFAGui {
 		fileIOPanel.add(inputLabel, c);
 
 		/* Add some space in the middle column of this panel */
+		/**/
 		c = new GridBagConstraints();
 		c.ipadx = 150;
 		c.gridx = 1;
