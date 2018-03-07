@@ -33,15 +33,6 @@ private double avgLL = 0;
 
 public Statistics(){};	//default constructor
 
-public Statistics(int totalWords, int totalLines, int blankLines, double avgWpL, double avgLL)
-{
-	this.totalWords = words;
-	this.totalLines = lines;
-	this.blankLines = blankLines;
-	this.avgWpL = avgWpL;
-	this.avgLL = avgLL;
-}
-
 Methods:
 
 + int getTotalWords()	// # Words processed
