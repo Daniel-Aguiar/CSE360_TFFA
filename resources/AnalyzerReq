@@ -1,0 +1,64 @@
+class:ANALYZER
+
+Requirements:
+
+Record...
+# words processed
+# lines
+# blank lines removed
+
+Calculate...
+Average words/line
+Average line length
+
+Methods:
++ void analyze()
+	- int countWords()
+	- int countLines()
+	- int countBlankLines()
+	- double calcAvgWpL()
+	- double calcAvgLL()
+	- void updateStatistics()
+		Statistics stats = new Statistics(totalWords, totalLines, blankLines, avgWpL, avgLL)
++ Statistics getStatistics()
+
+---------------------------------------------------------------------------------------
+class:STATISTICS
+
+An object for all the acquired statistics to be accessed from.
+
+private int totalWords = 0;
+private int totalLines = 0;
+private int blankLines = 0;
+private double avgWpL = 0;
+private double avgLL = 0;
+
+public Statistics(){};	//default constructor
+
+public Statistics(int totalWords, int totalLines, int blankLines, double avgWpL, double avgLL)
+{
+	this.totalWords = words;
+	this.totalLines = lines;
+	this.blankLines = blankLines;
+	this.avgWpL = avgWpL;
+	this.avgLL = avgLL;
+}
+
+Methods:
+
++ int getTotalWords()	// # Words processed
++ int setTotalWords()
+
++ int getTotalLines()	// # Lines processed
++ int setTotalLines()
+
++ int getBlankLines()	// # Blank lines removed
++ int setBlankLines()
+
++ double getAvgWpL()	// Avg words per line
++ double setAvgWpL()
+
++ double getAvgLL()	// Avg line length
++ double setAvgLL()
+
+	
