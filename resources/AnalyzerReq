@@ -12,14 +12,14 @@ Average words/line
 Average line length
 
 Methods:
-+ void analyze()
++ void analyze(File filename)
 	- int countWords()
 	- int countLines()
 	- int countBlankLines()
 	- double calcAvgWpL()
 	- double calcAvgLL()
-	- void updateStatistics()
-		Statistics stats = new Statistics(totalWords, totalLines, blankLines, avgWpL, avgLL)
+- void updateStatistics()
+	Statistics stats = new Statistics(totalWords, totalLines, blankLines, avgWpL, avgLL)
 + Statistics getStatistics()
 
 ---------------------------------------------------------------------------------------
