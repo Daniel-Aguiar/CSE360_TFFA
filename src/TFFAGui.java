@@ -201,7 +201,7 @@ public class TFFAGui {
 		c.gridy = 0;
 		c.gridheight = 2;
 		c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(10, 30, 0, 0);
+		c.insets = new Insets(10, 58, 0, 0);
 		createStatsBox(bottomHalfOfFrame, c);
 
 		c = new GridBagConstraints();
@@ -209,7 +209,7 @@ public class TFFAGui {
 		c.anchor = GridBagConstraints.LINE_START;
 		guiFrame.getContentPane().add(bottomHalfOfFrame, c);
 
-		guiFrame.setSize(700, 350);
+		guiFrame.setSize(600, 350);
 		guiFrame.setVisible(true);
 	}
 
