@@ -7,7 +7,7 @@ public class TFFAGui {
 	private static boolean RESIZABLE = false;
 
 	
-	public static void createFilePane(Container pane, GridBagConstraints arrangement) {
+	private void createFilePane(Container pane, GridBagConstraints arrangement) {
 		JPanel fileIOPanel = new JPanel(new GridBagLayout());
 
 		JLabel inputLabel = new JLabel("Input File");
@@ -68,7 +68,7 @@ public class TFFAGui {
 		pane.add(fileIOPanel, arrangement);
 	}
 
-	public static void createJustifyButtons(Container pane, GridBagConstraints arrangement) {
+	private void createJustifyButtons(Container pane, GridBagConstraints arrangement) {
 		JPanel justifyPanel = new JPanel(new GridBagLayout());
 		justifyPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED)); /*Create lowered bevel border*/
 		GridBagConstraints c = new GridBagConstraints();
@@ -92,7 +92,7 @@ public class TFFAGui {
 		pane.add(justifyPanel, arrangement);
 	}
 
-	public static void createFormatAndExitButtons(Container pane, GridBagConstraints arrangement) {
+	private void createFormatAndExitButtons(Container pane, GridBagConstraints arrangement) {
 		JPanel formatExitButtons = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
@@ -112,7 +112,7 @@ public class TFFAGui {
 		pane.add(formatExitButtons, arrangement);
 	}
 
-	public static void createStatsBox(Container pane, GridBagConstraints arrangement) {
+	private void createStatsBox(Container pane, GridBagConstraints arrangement) {
 		JPanel statsBox = new JPanel(new GridBagLayout());
 
 		JLabel statTitle = new JLabel("Statistics");
