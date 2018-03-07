@@ -1,0 +1,4 @@
+Formats input file using Options
+return a statistics object with input statistics and path to output file
+
+Statitics Formatter::format(Statistics stats, Options opts)
