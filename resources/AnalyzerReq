@@ -30,6 +30,7 @@ private int totalLines = 0;
 private int blankLines = 0;
 private double avgWpL = 0;
 private double avgLL = 0;
+// Don't forget to add Path object here
 
 public Statistics(){};	//default constructor
 
@@ -49,3 +50,5 @@ Methods:
 
 + double getAvgLL()	// Avg line length	
 + double setAvgLL()
+
+// Don't forget to add Path getters/setters
