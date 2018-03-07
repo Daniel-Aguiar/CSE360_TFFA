@@ -19,7 +19,6 @@ Methods:
 	- double calcAvgWpL()
 	- double calcAvgLL()
 	- void updateStatistics()
-		Statistics stats = new Statistics(totalWords, totalLines, blankLines, avgWpL, avgLL)
 
 ---------------------------------------------------------------------------------------
 class:STATISTICS
@@ -46,11 +45,16 @@ public Statistics(int totalWords, int totalLines, int blankLines, double avgWpL,
 Methods:
 
 + int getTotalWords()	// # Words processed
++ int setTotalWords()
 
 + int getTotalLines()	// # Lines processed
++ int setTotalLines()
 
 + int getBlankLines()	// # Blank lines removed
++ int setBlankLines()
 
 + double getAvgWpL()	// Avg words per line
++ double setAvgWpL()
 
 + double getAvgLL()	// Avg line length	
++ double setAvgLL()
