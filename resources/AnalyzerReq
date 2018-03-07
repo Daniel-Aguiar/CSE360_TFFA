@@ -12,7 +12,7 @@ Average words/line
 Average line length
 
 Methods:
-+ Statistics analyze(File filename, Statistics stats)
++ Statistics analyze(Path pathX)
 	- int countWords()
 	- int countLines()
 	- int countBlankLines()
