@@ -3,8 +3,8 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.*;
 
+@SuppressWarnings("serial")
 public class StatsBox extends JPanel{
 	private JLabel statTitle;
 	private JLabel words;

@@ -1,10 +1,11 @@
-package gui
+package gui;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+@SuppressWarnings("serial")
 public class JustifyPanel extends JPanel{
 	private JRadioButton leftJusty;
 	private JRadioButton rightJusty;
