@@ -10,7 +10,7 @@ public class TFFAGui {
 
 	
 	private void createFilePane(Container pane, GridBagConstraints arrangement) {
-		JPanel fileIOPanel = new JPanel(new GridBagLayout());
+		/*JPanel fileIOPanel = new JPanel(new GridBagLayout());
 
 		JLabel inputLabel = new JLabel("Input File");
 		GridBagConstraints c = new GridBagConstraints();
@@ -19,8 +19,7 @@ public class TFFAGui {
 		c.ipadx = 100;
 		c.anchor = GridBagConstraints.LINE_START;
 		fileIOPanel.add(inputLabel, c);
-
-		/* Add some space in the middle column of this panel */
+		
 		c = new GridBagConstraints();
 		c.ipadx = 150;
 		c.gridx = 1;
@@ -65,37 +64,38 @@ public class TFFAGui {
 		c.gridy = 3;
 		c.insets = new Insets(0, 25, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
-		fileIOPanel.add(browseOutputBtn, c);
+		fileIOPanel.add(browseOutputBtn, c);*/
 
-		pane.add(fileIOPanel, arrangement);
+		FileIOPanel filePanel = new FileIOPanel(new GridBagLayout());
+		pane.add(filePanel, arrangement);
 	}
 
 	private void createJustifyButtons(Container pane, GridBagConstraints arrangement) {
-		JPanel justifyPanel = new JPanel(new GridBagLayout());
-		justifyPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED)); /*Create lowered bevel border*/
-		GridBagConstraints c = new GridBagConstraints();
-
+		/*JPanel justifyPanel = new JPanel(new GridBagLayout());
+		justifyPanel.setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED)); 
+		
 		JRadioButton leftJusty = new JRadioButton("Left Justified");
 		JRadioButton rightJusty = new JRadioButton("Right Justified");
 
-		/* Group up the buttons */
 		ButtonGroup justifyGroup = new ButtonGroup();
 		justifyGroup.add(leftJusty);
 		justifyGroup.add(rightJusty);
 
+		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.CENTER;
 		c.insets = new Insets(7, 10, 7, 10);
 		justifyPanel.add(leftJusty, c);
 		c.gridx = 1;
-		justifyPanel.add(rightJusty, c);
-
-		pane.add(justifyPanel, arrangement);
+		justifyPanel.add(rightJusty, c); */
+		
+		JustifyPanel justy = new JustifyPanel(new GridBagLayout());
+		pane.add(justy, arrangement);
 	}
 
 	private void createFormatAndExitButtons(Container pane, GridBagConstraints arrangement) {
-		JPanel formatExitButtons = new JPanel(new GridBagLayout());
+		/*JPanel formatExitButtons = new JPanel(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 
 		JButton formatButton = new JButton("Format");
@@ -109,13 +109,14 @@ public class TFFAGui {
 		c.gridy = 0;
 		c.ipadx = 25;
 		c.insets = new Insets(0, 25, 0, 25);
-		formatExitButtons.add(exitButton, c);
+		formatExitButtons.add(exitButton, c);*/
 
-		pane.add(formatExitButtons, arrangement);
+		FormatExitButtons bottomButtons = new FormatExitButtons(new GridBagLayout());
+		pane.add(bottomButtons, arrangement);
 	}
 
 	private void createStatsBox(Container pane, GridBagConstraints arrangement) {
-		JPanel statsBox = new JPanel(new GridBagLayout());
+		/*JPanel statsBox = new JPanel(new GridBagLayout());
 
 		JLabel statTitle = new JLabel("Statistics");
 		statTitle.setFont(new Font(null, Font.BOLD, 14));
@@ -170,8 +171,10 @@ public class TFFAGui {
 		c.anchor = GridBagConstraints.LINE_START;
 		statsBox.add(avgLength, c);
 
-		statsBox.setBorder(BorderFactory.createEtchedBorder()); /*Create stats border*/
-		pane.add(statsBox, arrangement);
+		statsBox.setBorder(BorderFactory.createEtchedBorder()); Create stats border*/
+		
+		StatsBox statsPanel = new StatsBox(new GridBagLayout());
+		pane.add(statsPanel, arrangement);
 	}
 
 	public TFFAGui() {
