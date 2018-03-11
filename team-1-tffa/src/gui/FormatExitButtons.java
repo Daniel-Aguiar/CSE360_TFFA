@@ -18,6 +18,7 @@ public class FormatExitButtons extends JPanel{
 		c.gridy = 0;
 		c.insets = new Insets(0, 0, 0, 25);
 		add(formatButton, c);
+		formatButton.addActionListener(new FormatButtonListener());
 
 		exitButton = new JButton("Exit");
 		c = new GridBagConstraints();
@@ -26,5 +27,21 @@ public class FormatExitButtons extends JPanel{
 		c.ipadx = 25;
 		c.insets = new Insets(0, 25, 0, 25);
 		add(exitButton, c);
+		exitButton.addActionListener(new ExitButtonListener());
+	}
+	
+	private class FormatButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			//TODO: Retrieve Paths from input and output
+			//		fields, and check them.
+		}
+	}
+	
+	private class ExitButtonListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			System.exit(0);
+		}
 	}
 }

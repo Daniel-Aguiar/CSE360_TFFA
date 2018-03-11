@@ -2,10 +2,19 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+
 import javax.swing.*;
+import javax.swing.filechooser.*;
 
 @SuppressWarnings("serial")
 public class FileIOPanel extends JPanel{
+	private String inputFile;
+	private String outputFile;
+	private JFileChooser fileChooser;
+	
 	private JLabel inputLabel;
 	private JLabel outputLabel;
 	private JButton browseInputBtn;
@@ -61,6 +70,7 @@ public class FileIOPanel extends JPanel{
 		c.gridy = 1;
 		c.insets = new Insets(0, 25, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
+		browseInputBtn.addActionListener(new InputListener());
 		add(browseInputBtn, c);
 
 		browseOutputBtn = new JButton("Browse");
@@ -69,6 +79,83 @@ public class FileIOPanel extends JPanel{
 		c.gridy = 3;
 		c.insets = new Insets(0, 25, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
+		browseOutputBtn.addActionListener(new OutputListener());
 		add(browseOutputBtn, c);
+	}
+	
+	private class InputListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			if (fileChooser == null) {
+				fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+			}
+			
+			int fileSelectVal = fileChooser.showDialog(browseInputBtn.getParent().getParent(), "Select");
+			
+			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
+				File file = fileChooser.getSelectedFile();
+				String fileType;
+				
+				try {
+					fileType = Files.probeContentType(file.toPath());
+				} catch(IOException e) {
+					new FileError("read");
+					return;
+				}
+				
+				if (!file.canRead() || !fileType.equals("text/plain"))
+					new FileError("read");
+				else 
+					setInputFile(file.getPath());
+				
+				if (inputFile.equals(outputFile)) {
+					new FileError("writeInput");
+					setInputFile("");
+				}
+			}
+		}
+	}
+	
+	private class OutputListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			if (fileChooser == null) {
+				fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+			}
+			
+			int fileSelectVal = fileChooser.showDialog(browseOutputBtn.getParent().getParent(), "Select");
+			
+			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
+				File file = fileChooser.getSelectedFile();
+				String fileType;
+				
+				try {
+					fileType = Files.probeContentType(file.toPath());
+				} catch(IOException e) {
+					new FileError("write");
+					return;
+				}
+				
+				if (!file.canWrite() || !fileType.equals("text/plain"))
+					new FileError("write");
+				else
+					setOutputFile(file.getPath());
+				
+				if (outputFile.equals(inputFile)) {
+					new FileError("writeInput");
+					setOutputFile("");
+				}
+			}
+		}
+	}
+	
+	public void setInputFile(String file) {
+		inputFile = file;
+	}
+	
+	public void setOutputFile(String file) {
+		outputFile = file;
 	}
 }
