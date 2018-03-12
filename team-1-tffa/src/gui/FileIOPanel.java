@@ -11,8 +11,6 @@ import javax.swing.filechooser.*;
 
 @SuppressWarnings("serial")
 public class FileIOPanel extends JPanel{
-	private String inputFile;
-	private String outputFile;
 	private JFileChooser fileChooser;
 	
 	private JLabel inputLabel;
@@ -95,23 +93,28 @@ public class FileIOPanel extends JPanel{
 			
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
+				String inputFile = "";
 				String fileType;
 				
 				try {
 					fileType = Files.probeContentType(file.toPath());
 				} catch(IOException e) {
-					new FileError("read");
+					new FileError(FileErrorType.READ);
 					return;
 				}
 				
-				if (!file.canRead() || !fileType.equals("text/plain"))
-					new FileError("read");
+				if (!file.canRead() || !fileType.equals("text/plain")) {
+					new FileError(FileErrorType.READ);
+					return;
+				}
 				else 
-					setInputFile(file.getPath());
+					inputFile = file.getPath();
 				
+				String outputFile = outputField.getText();
 				if (inputFile.equals(outputFile)) {
-					new FileError("writeInput");
+					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
 					setInputFile("");
+					return;
 				}
 				
 				inputField.setText(inputFile);
@@ -131,23 +134,37 @@ public class FileIOPanel extends JPanel{
 			
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
+				String outputFile = "";
 				String fileType;
 				
 				try {
 					fileType = Files.probeContentType(file.toPath());
 				} catch(IOException e) {
-					new FileError("write");
+					new FileError(FileErrorType.WRITE);
 					return;
 				}
 				
-				if (!file.canWrite() || !fileType.equals("text/plain"))
-					new FileError("write");
-				else
-					setOutputFile(file.getPath());
+				if (file.exists() && !(file.canWrite() && fileType.equals("text/plain"))) {
+					new FileError(FileErrorType.WRITE);
+					return;
+				}
+				else if (!file.exists()) {
+					try {
+						file.createNewFile();
+						setOutputFile(file.getPath());
+					} catch (IOException e) {
+						new FileError(FileErrorType.WRITE);
+						return;
+					}
+				} else {
+					outputFile = file.getPath();
+				}
 				
+				String inputFile = inputField.getText();
 				if (outputFile.equals(inputFile)) {
-					new FileError("writeInput");
+					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
 					setOutputFile("");
+					return;
 				}
 				
 				outputField.setText(outputFile);
@@ -156,14 +173,14 @@ public class FileIOPanel extends JPanel{
 	}
 	
 	public void setInputFile(String file) {
-		inputFile = file;
+		inputField.setText(file);
 	}
 	
-	public String getInputFile() { return inputFile; }
+	public String getInputFile() { return inputField.getText(); }
 	
 	public void setOutputFile(String file) {
-		outputFile = file;
+		outputField.setText(file);
 	}
 	
-	public String getOutputFile() { return outputFile; }
+	public String getOutputFile() { return outputField.getText(); }
 }

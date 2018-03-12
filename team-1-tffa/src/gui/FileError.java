@@ -6,18 +6,25 @@ import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class FileError extends JDialog{
-	public FileError(String errorType){
+	public FileError(FileErrorType error){
 		setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
 		setLayout(new GridBagLayout());
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		
 		JLabel message = null;
-		if (errorType.equals("read"))
+		switch(error) {
+		case READ:
 			message = new JLabel("Invalid input file.");
-		else if (errorType.equals("write"))
+			break;
+			
+		case WRITE:
 			message = new JLabel("Invalid output file.");
-		else if (errorType.equals("writeInput"))
+			break;
+			
+		case SAME_INPUT_OUTPUT:
 			message = new JLabel("Cannot overwrite input file.");
+			break;
+		}
 		message.setFont(new Font(null, Font.BOLD, 12));
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;

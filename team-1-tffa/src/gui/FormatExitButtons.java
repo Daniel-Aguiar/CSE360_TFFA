@@ -2,14 +2,19 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class FormatExitButtons extends JPanel{
+	private final TFFAGui mainFrame;
+	
 	private JButton formatButton;
 	private JButton exitButton;
 	
-	public FormatExitButtons(LayoutManager layout){
+	public FormatExitButtons(LayoutManager layout, TFFAGui mainFrame){
+		this.mainFrame = mainFrame;
 		setLayout(layout);
 		
 		formatButton = new JButton("Format");
@@ -27,14 +32,30 @@ public class FormatExitButtons extends JPanel{
 		c.ipadx = 25;
 		c.insets = new Insets(0, 25, 0, 25);
 		add(exitButton, c);
-		exitButton.addActionListener(new ExitButtonListener());
+		exitButton.addActionListener(new ExitButtonListener());		
 	}
 	
 	private class FormatButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			//TODO: Retrieve Paths from input and output
-			//		fields, and check them.
+			File inputFile = new File(mainFrame.getInputFileName());
+			if (!inputFile.canRead()) {
+				new FileError(FileErrorType.READ);
+				return;
+			}
+			
+			//TODO: Remember to create a new output file if one doesn't exist.
+			
+			File outputFile = new File(mainFrame.getOutputFileName());
+			if (!outputFile.canWrite()) {
+				new FileError(FileErrorType.WRITE);
+				return;
+			} else if (outputFile.equals(inputFile)) {
+				new FileError(FileErrorType.SAME_INPUT_OUTPUT);
+				return;
+			}
+			
+			mainFrame.startController();
 		}
 	}
 	

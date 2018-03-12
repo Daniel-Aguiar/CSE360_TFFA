@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class TFFAGui {
+@SuppressWarnings("serial")
+public class TFFAGui extends JFrame{
 	private static boolean RESIZABLE = false;
 	
 	private FileIOPanel filePanel;
@@ -24,7 +25,7 @@ public class TFFAGui {
 	}
 
 	private void createFormatAndExitButtons(Container pane, GridBagConstraints arrangement) {
-		bottomButtons = new FormatExitButtons(new GridBagLayout());
+		bottomButtons = new FormatExitButtons(new GridBagLayout(), this);
 		pane.add(bottomButtons, arrangement);
 	}
 
@@ -34,16 +35,15 @@ public class TFFAGui {
 	}
 
 	public TFFAGui() {
-		JFrame guiFrame = new JFrame();
-		guiFrame.getContentPane().setLayout(new GridBagLayout());
-		guiFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		guiFrame.setResizable(RESIZABLE);
+		getContentPane().setLayout(new GridBagLayout());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(RESIZABLE);
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
 		c.anchor = GridBagConstraints.LINE_START;
-		createFilePane(guiFrame.getContentPane(), c);
+		createFilePane(getContentPane(), c);
 
 		JPanel bottomHalfOfFrame = new JPanel(new GridBagLayout());
 		c = new GridBagConstraints();
@@ -69,18 +69,10 @@ public class TFFAGui {
 		c = new GridBagConstraints();
 		c.gridy = 1;
 		c.anchor = GridBagConstraints.LINE_START;
-		guiFrame.getContentPane().add(bottomHalfOfFrame, c);
+		getContentPane().add(bottomHalfOfFrame, c);
 
-		guiFrame.setSize(600, 350);
-		guiFrame.setVisible(true);
-	}
-	
-	public void setInputFile(String file) {
-		
-	}
-	
-	public void setOutputFile(String file) {
-		
+		setSize(600, 350);
+		setVisible(true);
 	}
 
 	public static void main(String[] args){
@@ -88,5 +80,17 @@ public class TFFAGui {
 			@Override
 			public void run(){ new TFFAGui(); }
 		});
+	}
+	
+	public String getInputFileName() { return filePanel.getInputFile(); }
+	
+	public String getOutputFileName() { return filePanel.getOutputFile(); }
+	
+	public void addStats() {}
+	
+	//public Options getOptions() {}
+	
+	void startController() {
+		
 	}
 }
