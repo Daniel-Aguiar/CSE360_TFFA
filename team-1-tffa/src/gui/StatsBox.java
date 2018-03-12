@@ -1,11 +1,11 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import common.*;
 
 @SuppressWarnings("serial")
-public class StatsBox extends JPanel{
+class StatsBox extends JPanel{
 	private JLabel statTitle;
 	private JLabel words;
 	private JLabel totalLines;
@@ -13,13 +13,7 @@ public class StatsBox extends JPanel{
 	private JLabel avgWords;
 	private JLabel avgLength;
 	
-	private int wordVal;
-	private int totalLinesVal;
-	private int blankLinesVal;
-	private double avgWordsVal;
-	private double avgLengthVal;
-	
-	public StatsBox(LayoutManager layout){
+	StatsBox(LayoutManager layout){
 		setLayout(layout);
 		setBorder(BorderFactory.createEtchedBorder());
 		
@@ -75,5 +69,9 @@ public class StatsBox extends JPanel{
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(avgLength, c);
+	}
+	
+	void setStats(Statistics stats) {
+		//words.setText(words.getText() + stats.getTotalWords());
 	}
 }

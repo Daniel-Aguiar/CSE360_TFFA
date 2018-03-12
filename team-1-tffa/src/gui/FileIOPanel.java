@@ -10,7 +10,7 @@ import javax.swing.*;
 import javax.swing.filechooser.*;
 
 @SuppressWarnings("serial")
-public class FileIOPanel extends JPanel{
+class FileIOPanel extends JPanel{
 	private JFileChooser fileChooser;
 	
 	private JLabel inputLabel;
@@ -20,7 +20,7 @@ public class FileIOPanel extends JPanel{
 	private JTextField inputField;
 	private JTextField outputField;
 		
-	public FileIOPanel(LayoutManager layout){
+	FileIOPanel(LayoutManager layout){
 		setLayout(layout);
 		
 		inputLabel = new JLabel("Input File");
@@ -99,25 +99,24 @@ public class FileIOPanel extends JPanel{
 				try {
 					fileType = Files.probeContentType(file.toPath());
 				} catch(IOException e) {
-					new FileError(FileErrorType.READ);
+					new FileError(FileErrorType.ERROR);
 					return;
 				}
 				
 				if (!file.canRead() || !fileType.equals("text/plain")) {
 					new FileError(FileErrorType.READ);
 					return;
-				}
-				else 
+				} else 
 					inputFile = file.getPath();
 				
-				String outputFile = outputField.getText();
+				String outputFile = getOutputFile();
 				if (inputFile.equals(outputFile)) {
 					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
 					setInputFile("");
 					return;
 				}
 				
-				inputField.setText(inputFile);
+				setInputFile(inputFile);
 			}
 		}
 	}
@@ -140,7 +139,7 @@ public class FileIOPanel extends JPanel{
 				try {
 					fileType = Files.probeContentType(file.toPath());
 				} catch(IOException e) {
-					new FileError(FileErrorType.WRITE);
+					new FileError(FileErrorType.ERROR);
 					return;
 				}
 				
@@ -153,34 +152,34 @@ public class FileIOPanel extends JPanel{
 						file.createNewFile();
 						setOutputFile(file.getPath());
 					} catch (IOException e) {
-						new FileError(FileErrorType.WRITE);
+						new FileError(FileErrorType.ERROR);
 						return;
 					}
 				} else {
 					outputFile = file.getPath();
 				}
 				
-				String inputFile = inputField.getText();
+				String inputFile = getInputFile();
 				if (outputFile.equals(inputFile)) {
 					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
 					setOutputFile("");
 					return;
 				}
 				
-				outputField.setText(outputFile);
+				setOutputFile(outputFile);
 			}
 		}
 	}
 	
-	public void setInputFile(String file) {
+	void setInputFile(String file) {
 		inputField.setText(file);
 	}
 	
-	public String getInputFile() { return inputField.getText(); }
+	String getInputFile() { return inputField.getText(); }
 	
-	public void setOutputFile(String file) {
+	void setOutputFile(String file) {
 		outputField.setText(file);
 	}
 	
-	public String getOutputFile() { return outputField.getText(); }
+	String getOutputFile() { return outputField.getText(); }
 }

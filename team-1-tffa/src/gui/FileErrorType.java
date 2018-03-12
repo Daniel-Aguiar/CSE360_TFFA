@@ -1,5 +1,5 @@
 package gui;
 
-public enum FileErrorType {
-	READ, WRITE, SAME_INPUT_OUTPUT;
+enum FileErrorType {
+	READ, WRITE, SAME_INPUT_OUTPUT, ERROR;
 }

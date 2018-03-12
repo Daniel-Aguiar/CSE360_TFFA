@@ -6,14 +6,14 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 @SuppressWarnings("serial")
-public class JustifyPanel extends JPanel{
+class JustifyPanel extends JPanel{
 	private String justification;
 	
 	private JRadioButton leftJusty;
 	private JRadioButton rightJusty;
 	private ButtonGroup justifyGroup;
 		
-	public JustifyPanel(LayoutManager layout){
+	JustifyPanel(LayoutManager layout){
 		setLayout(layout);
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
@@ -45,16 +45,14 @@ public class JustifyPanel extends JPanel{
 	private class JustyListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			ButtonModel leftModel = leftJusty.getModel();
-			
-			if (justifyGroup.isSelected(leftModel))
+			if (justifyGroup.isSelected(leftJusty.getModel()))
 				justification = "left";
 			else
 				justification = "right";
 		}
 	}
 	
-	public String getJustification() {
+	String getJustification() {
 		return justification;
 	}
 }
