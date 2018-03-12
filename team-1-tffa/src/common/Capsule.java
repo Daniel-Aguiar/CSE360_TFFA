@@ -11,8 +11,9 @@ public class Capsule {
     private Statistics stats;
     private Options opts;
 
-    public Capsule() {} // no-arg constructor
-    
+    /* No-arg constructor */
+    public Capsule() {} // by default, members have no references
+
     /* Getters */
     public Path getInputFile() {
         return this.inputFile;
@@ -36,7 +37,7 @@ public class Capsule {
     }
 
     public void setOutputFile(String filename) {
-    		this.outputFile = Paths.get(filename);
+		this.outputFile = Paths.get(filename);
     }
 
     public void setInputFile(Path obj) {
@@ -44,7 +45,7 @@ public class Capsule {
     }
 
     public void setInputFile(String filename) {
-    		this.outputFile = Paths.get(filename);
+		this.outputFile = Paths.get(filename);
     }
 
     public void setStatistics(Statistics obj) {
@@ -54,37 +55,37 @@ public class Capsule {
     public void setOptions(Options obj) {
         this.opts = obj;
     }
-    
-    /* Lance's Code */	
-    	//these two functions are needed if you ever want to do things like put objects of this class into a container.
-    	@Override
-    	public int hashCode() {
-    		final int prime = 31;
-    		int result = 1;
-    		result = prime * result + ((inputFile == null) ? 0 : inputFile.hashCode());
-    		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
-    		return result;
-    	}
-    	@Override
-    	public boolean equals(Object obj) {
-    		if (this == obj)
-    			return true;
-    		if (obj == null)
-    			return false;
-    		if (getClass() != obj.getClass())
-    			return false;
-    		Options other = (Options) obj;
-    		if (inputFile == null) {
-    			if (other.inputFile != null)
-    				return false;
-    		} else if (!inputFile.equals(other.inputFile))
-    			return false;
-    		if (outputFile == null) {
-    			if (other.outputFile != null)
-    				return false;
-    		} else if (!outputFile.equals(other.outputFile))
-    			return false;
-    		return true;
-    	}
+
+    /* Lance's Code */
+	//these two functions are needed if you ever want to do things like put objects of this class into a container.
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((inputFile == null) ? 0 : inputFile.hashCode());
+		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Options other = (Options) obj;
+		if (inputFile == null) {
+			if (other.inputFile != null)
+				return false;
+		} else if (!inputFile.equals(other.inputFile))
+			return false;
+		if (outputFile == null) {
+			if (other.outputFile != null)
+				return false;
+		} else if (!outputFile.equals(other.outputFile))
+			return false;
+		return true;
+	}
 
 }
