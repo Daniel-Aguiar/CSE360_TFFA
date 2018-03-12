@@ -7,13 +7,15 @@ import javax.swing.border.*;
 
 @SuppressWarnings("serial")
 public class JustifyPanel extends JPanel{
+	private String justification;
+	
 	private JRadioButton leftJusty;
 	private JRadioButton rightJusty;
 	private ButtonGroup justifyGroup;
 		
 	public JustifyPanel(LayoutManager layout){
 		setLayout(layout);
-		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED)); /*Create lowered bevel border*/
+		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 
 		leftJusty = new JRadioButton("Left Justified");
 		rightJusty = new JRadioButton("Right Justified");
@@ -31,5 +33,28 @@ public class JustifyPanel extends JPanel{
 		add(leftJusty, c);
 		c.gridx = 1;
 		add(rightJusty, c);
+		
+		JustyListener justListen = new JustyListener();
+		
+		leftJusty.addActionListener(justListen);
+		rightJusty.addActionListener(justListen);
+		
+		leftJusty.doClick(); /*Left Justification should be selected by default*/
+	}
+	
+	private class JustyListener implements ActionListener{
+		@Override
+		public void actionPerformed(ActionEvent evt) {
+			ButtonModel leftModel = leftJusty.getModel();
+			
+			if (justifyGroup.isSelected(leftModel))
+				justification = "left";
+			else
+				justification = "right";
+		}
+	}
+	
+	public String getJustification() {
+		return justification;
 	}
 }

@@ -21,7 +21,7 @@ public class StatsBox extends JPanel{
 	
 	public StatsBox(LayoutManager layout){
 		setLayout(layout);
-		setBorder(BorderFactory.createEtchedBorder()); /*Create stats border*/
+		setBorder(BorderFactory.createEtchedBorder());
 		
 		statTitle = new JLabel("Statistics");
 		statTitle.setFont(new Font(null, Font.BOLD, 14));

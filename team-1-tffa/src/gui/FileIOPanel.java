@@ -113,6 +113,8 @@ public class FileIOPanel extends JPanel{
 					new FileError("writeInput");
 					setInputFile("");
 				}
+				
+				inputField.setText(inputFile);
 			}
 		}
 	}
@@ -147,6 +149,8 @@ public class FileIOPanel extends JPanel{
 					new FileError("writeInput");
 					setOutputFile("");
 				}
+				
+				outputField.setText(outputFile);
 			}
 		}
 	}
@@ -155,7 +159,11 @@ public class FileIOPanel extends JPanel{
 		inputFile = file;
 	}
 	
+	public String getInputFile() { return inputFile; }
+	
 	public void setOutputFile(String file) {
 		outputFile = file;
 	}
+	
+	public String getOutputFile() { return outputFile; }
 }
