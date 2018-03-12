@@ -1,62 +1,63 @@
 package common;
 
-import java.nio.file.Path;
-
 public class Statistics {
-		//**************************************** Private Methods
-		private Path inputFile;
-		private Path outputFile;
-		private int blankLines;
-		
-		//**************************************** Getters and Setters
-		public Path getInputFile() {
-			return inputFile;
-		}
-		public void setInputFile(Path inputFile) {
-			this.inputFile = inputFile;
-		}
-		public Path getOutputFile() {
-			return outputFile;
-		}
-		public void setOutputFile(Path outputFile) {
-			this.outputFile = outputFile;
-		}
-		public int getBlankLines() {
-			return blankLines;
-		}
-		public void setBlankLines(int blankLines) {
-			this.blankLines = blankLines;
-		}
-		
-		//these two functions are needed if you ever want to do things like put objects of this class into a container.
-		@Override
-		public int hashCode() {
-			final int prime = 31;
-			int result = 1;
-			result = prime * result + ((inputFile == null) ? 0 : inputFile.hashCode());
-			result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
-			return result;
-		}
-		@Override
-		public boolean equals(Object obj) {
-			if (this == obj)
-				return true;
-			if (obj == null)
-				return false;
-			if (getClass() != obj.getClass())
-				return false;
-			Statistics other = (Statistics) obj;
-			if (inputFile == null) {
-				if (other.inputFile != null)
-					return false;
-			} else if (!inputFile.equals(other.inputFile))
-				return false;
-			if (outputFile == null) {
-				if (other.outputFile != null)
-					return false;
-			} else if (!outputFile.equals(other.outputFile))
-				return false;
-			return true;
-		}
-		
+
+	/* Private Members */
+	private int totalWords;
+	private int totalLines;
+	private int blankLines;
+	private double avgWpL;
+	private double avgLL;
+
+	// No - arg constructor sets all private members to 0
+	public Statistics() {
+		totalWords = 0;
+		totalLines = 0;
+		blankLines = 0;
+		avgWpL = 0;
+		avgLL = 0
+	}
+
+	/* Setters */
+	public void setTotalWords(int arg) {
+		totalWords = arg;
+	}
+
+	public void setTotalLines(int arg) {
+		totalLines = arg;
+	}
+
+	public void setBlankLines(int arg) {
+		blankLines = arg;
+	}
+
+	public void setAvgWpL(double arg) {
+		avgWpL = arg;
+	}
+
+	public void setAvgLL(double arg) {
+		avgLL = arg;
+	}
+
+	/* Getters */
+	public int getTotalWords() {
+		return totalWords;
+	}
+
+	public int getTotalLines() {
+		return totalLines;
+	}
+
+	public int getBlankLines() {
+		return blankLines;
+	}
+
+	public double getAvgWpL() {
+		return avgWpL;
+	}
+
+	public double getAvgLL() {
+		return avgLL;
+	}
+
 }//end class
