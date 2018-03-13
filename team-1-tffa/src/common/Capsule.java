@@ -12,7 +12,9 @@ public class Capsule {
     private Options opts;
 
     /* No-arg constructor */
-    public Capsule() {} // by default, members have no references
+    public Capsule() {
+    		stats = new Statistics();
+    } 
 
     /* Getters */
     public Path getInputFile() {
