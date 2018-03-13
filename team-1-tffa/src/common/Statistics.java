@@ -15,7 +15,7 @@ public class Statistics {
 		totalLines = 0;
 		blankLines = 0;
 		avgWpL = 0;
-		avgLL = 0
+		avgLL = 0;
 	}
 
 	/* Setters */

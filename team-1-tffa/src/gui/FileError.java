@@ -2,8 +2,6 @@ package gui;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -56,9 +54,6 @@ class FileError extends JDialog{
 		setResizable(false);
 		pack();
 		setVisible(true);
-		
-		File dir = new File(".");
-		System.out.println("Current directory: " + dir.getAbsolutePath());
 	}
 	
 	private class CloseListener implements ActionListener{

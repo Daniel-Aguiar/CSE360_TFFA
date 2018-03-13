@@ -87,6 +87,7 @@ class FileIOPanel extends JPanel{
 			if (fileChooser == null) {
 				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+				fileChooser.setAcceptAllFileFilterUsed(false);
 			}
 			
 			int fileSelectVal = fileChooser.showDialog(browseInputBtn.getParent().getParent(), "Select");
@@ -127,6 +128,7 @@ class FileIOPanel extends JPanel{
 			if (fileChooser == null) {
 				fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
+				fileChooser.setAcceptAllFileFilterUsed(false);
 			}
 			
 			int fileSelectVal = fileChooser.showDialog(browseOutputBtn.getParent().getParent(), "Select");

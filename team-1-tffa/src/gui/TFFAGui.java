@@ -1,8 +1,8 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import common.*;
 
 @SuppressWarnings("serial")
 public class TFFAGui extends JFrame{
@@ -86,10 +86,17 @@ public class TFFAGui extends JFrame{
 	
 	public String getOutputFileName() { return filePanel.getOutputFile(); }
 	
-	public void addStats() {}
+	public void addStats(Statistics stats) {
+		statsPanel.setStats(stats);
+	}
 	
-	//public Options getOptions() {}
+	public Options getOptions() {
+		Options opts = new Options();
+		opts.setJusty(justy.getJustification());
+		return opts;
+	}
 	
+	//TODO: Fill this stub
 	void startController() {
 		
 	}

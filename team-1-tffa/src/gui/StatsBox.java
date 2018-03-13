@@ -72,6 +72,10 @@ class StatsBox extends JPanel{
 	}
 	
 	void setStats(Statistics stats) {
-		//words.setText(words.getText() + stats.getTotalWords());
+		words.setText(words.getText().replaceAll("[0-9]+", "") + stats.getTotalWords());
+		totalLines.setText(totalLines.getText().replaceAll("[0-9]+", "") + stats.getTotalLines());
+		blankLines.setText(blankLines.getText().replaceAll("[0-9]+", "") + stats.getBlankLines());
+		avgWords.setText(avgWords.getText().replaceAll("[0-9]+\\.?[0-9]*", "") + String.format("%.2f", stats.getAvgWpL()));
+		avgLength.setText(avgLength.getText().replaceAll("[0-9]+\\.?[0-9]*", "") + String.format("%.2f", stats.getAvgLL()));
 	}
 }
