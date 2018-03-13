@@ -1,6 +1,11 @@
 package controller;
 
 import common.Capsule;
+import common.Options;
+
+import formatter.Formatter;
+import analyzer.Analyzer;
+import gui.TFFAGui;
 
 public class Controller {
 
@@ -13,12 +18,24 @@ public class Controller {
 
 
     // To be called by GUI
-    public Capsule goFormat() {
-    		/*
-    		 * Should make a call to Formatter, providing the path objects and the Statistics object
-			 * Before format(), use options object to set max line length to 80
-    		 * Then should call Analyzer, providing it the Statistics Object
-    		 * Then should return the private Capsule object
-    		 */
+    public Capsule goFormat(TffaGui gui) {
+    	
+    		Capsule cap = new Capsule();
+    		
+    		String inputPathName = gui.getInputFileName();
+    		String outputPathName = gui.getOutputFileName();
+    		Options opts = gui.getOptions();
+    		
+    		cap.setInputFile(inputPathName);
+    		cap.setOutputFile(outputPathName);
+    		cap.setOptions(opts);
+    		
+    		Formatter fmt = new Formatter(cap);
+    		cap = fmt.format();
+    		
+    		Formatter anlyz = new Analyzer(cap);
+    		cap = anlyz.analyze();
+    		
+    		return cap;
     }
 }
