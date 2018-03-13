@@ -6,9 +6,7 @@ public class Options {
 	private int maxLineLength;
 
 	//No-arg constructor
-	public Options() {
-		justy = "";
-	}
+	public Options() {}
 
 	/* Setters */
 	public void setJusty(String justy) {
