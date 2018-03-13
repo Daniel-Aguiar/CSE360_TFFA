@@ -30,6 +30,8 @@ public class Controller {
     		String outputPathName = gui.getOutputFileName();
     		Options opts = gui.getOptions();
     		
+    		opts.setMaxLineLength(80);
+    		
     		cap.setInputFile(inputPathName);
     		cap.setOutputFile(outputPathName);
     		cap.setOptions(opts);
