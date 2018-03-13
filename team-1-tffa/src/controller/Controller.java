@@ -9,16 +9,20 @@ import gui.TFFAGui;
 
 public class Controller {
 
-	/* Members */
-
-
-	// Should I have a private Capsule, or should GUI have control over the Capsule?
-
-    // NOTE: Singleton implementation needed
+	/* Singleton Implementation */
+	private Controller() {}
+	
+	private static class ControllerHolder {
+		private static final Controller INSTANCE = new Controller();
+	}
+	
+	public static Controller getInstance() {
+		return ControllerHolder.INSTANCE;
+	}
 
 
     // To be called by GUI
-    public Capsule goFormat(TffaGui gui) {
+    public Capsule goFormat(TFFAGui gui) {
     	
     		Capsule cap = new Capsule();
     		
