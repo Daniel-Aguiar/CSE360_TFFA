@@ -44,6 +44,22 @@ public class Statistics {
 		return totalWords;
 	}
 
+	public int getTotalLines() {
+		return totalLines;
+	}
+
+	public int getBlankLines() {
+		return blankLines;
+	}
+
+	public double getAvgWpL() {
+		return avgWpL;
+	}
+
+	public double getAvgLL() {
+		return avgLL;
+	}
+	
 	/* hashCode() and equals() for data class */
 	@Override
 	public int hashCode() {
@@ -80,22 +96,6 @@ public class Statistics {
 		if (totalWords != other.totalWords)
 			return false;
 		return true;
-	}
-
-	public int getTotalLines() {
-		return totalLines;
-	}
-
-	public int getBlankLines() {
-		return blankLines;
-	}
-
-	public double getAvgWpL() {
-		return avgWpL;
-	}
-
-	public double getAvgLL() {
-		return avgLL;
 	}
 
 }//end class
