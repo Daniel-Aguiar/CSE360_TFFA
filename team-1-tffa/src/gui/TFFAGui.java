@@ -76,13 +76,6 @@ public class TFFAGui extends JFrame{
 		setTitle("Text File Formatter and Analizer");
 		setVisible(true);
 	}
-
-	public static void main(String[] args){
-		javax.swing.SwingUtilities.invokeLater(new Runnable(){
-			@Override
-			public void run(){ new TFFAGui(); }
-		});
-	}
 	
 	public String getInputFileName() { return filePanel.getInputFile(); }
 	
