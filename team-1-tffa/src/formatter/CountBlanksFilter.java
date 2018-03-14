@@ -1,9 +1,9 @@
 package formatter;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Path;
-
-import common.Options;
-import common.Statistics;
 
 
 /**
@@ -32,18 +32,21 @@ public class CountBlanksFilter extends FormatFilter {
 	
 	private int countBlankLines(Path theFile) {
 		
-		int count;
+		int count = 0;
+	
+		BufferedReader reader = new BufferedReader(new StringReader("hello\n\nworld\n"));
+		String curLine;
+		try {
+			while ((curLine = reader.readLine()) != null) {
+			  if (curLine.trim().isEmpty()) {
+			    count++;
+			  }
+			}//end while
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		//get a line 
-		//read each character 
-		//if a non-whitespace character exists in the line then it's not a blank line 
-		//if a non-whitespace character was not found increment the blank line counter.
-		//use a regex for this.
-		
-		
-		
-		
-		return 0;
+		return count;
 	}//end countBlankLines()
 	
 	
