@@ -31,7 +31,20 @@ public class Analyzer
 	private int countWords(Path file) 
 	{
 		int words = 0;
-		// To be completed...
+		
+		try (BufferedReader reader = new BufferedReader(new StringReader(file.toString()))) {
+		    String line = null;
+		    int size = 0;
+		    
+		    while ((line = reader.readLine()) != null) {
+		    	String[] split = line.split(" ");
+		    	size = split.length;
+		    	words += size;
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
 		return words;
 	}
 	
@@ -73,6 +86,7 @@ public class Analyzer
 		double avgLL = 0;
 		int totalLineLength = 0;
 
+		// Calculate total line length of the file.
 		try (BufferedReader reader = new BufferedReader(new StringReader(file.toString()))) {
 		    String line = null;
 		    while ((line = reader.readLine()) != null) {
@@ -90,7 +104,7 @@ public class Analyzer
 	{
 		cap.getStatistics().setTotalWords(wordCount);
 		cap.getStatistics().setTotalLines(lineCount);
-		// Blank lines removed is already filled in.
+		// Blank lines removed was already filled in by Formatter.
 		cap.getStatistics().setAvgWpL(avgWpL);
 		cap.getStatistics().setAvgLL(avgLL);
 	}
