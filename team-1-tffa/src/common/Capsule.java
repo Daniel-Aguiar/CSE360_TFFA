@@ -65,9 +65,10 @@ public class Capsule {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((inputFile == null) ? 0 : inputFile.hashCode());
-		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
+		result = prime * result + ((stats == null) ? 0 : stats.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,18 +77,18 @@ public class Capsule {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Options other = (Options) obj;
+		Capsule other = (Capsule) obj;
 		if (inputFile == null) {
 			if (other.inputFile != null)
 				return false;
 		} else if (!inputFile.equals(other.inputFile))
 			return false;
-		if (outputFile == null) {
-			if (other.outputFile != null)
+		if (stats == null) {
+			if (other.stats != null)
 				return false;
-		} else if (!outputFile.equals(other.outputFile))
+		} else if (!stats.equals(other.stats))
 			return false;
 		return true;
 	}
 
-}
+}//end class
