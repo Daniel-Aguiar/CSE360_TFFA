@@ -58,6 +58,7 @@ public class Capsule {
         this.opts = obj;
     }
 
+    
     /* Lance's Code */
 	//these two functions are needed if you ever want to do things like put objects of this class into a container.
 	@Override
@@ -68,6 +69,8 @@ public class Capsule {
 		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
 		return result;
 	}
+
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -76,7 +79,7 @@ public class Capsule {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Options other = (Options) obj;
+		Capsule other = (Capsule) obj;
 		if (inputFile == null) {
 			if (other.inputFile != null)
 				return false;
@@ -89,5 +92,9 @@ public class Capsule {
 			return false;
 		return true;
 	}
+
+    
+
+
 
 }

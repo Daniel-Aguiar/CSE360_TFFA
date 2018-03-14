@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.Capsule;
 import common.Options;
 import common.Statistics;
 
@@ -24,6 +25,7 @@ public class Formatter {
 	private Options opts;
 	private Statistics stats;
 	
+	private Capsule capsule;
 	
 	public Formatter(Statistics stats, Options opts) {
 		this.opts = opts;
@@ -36,18 +38,24 @@ public class Formatter {
 	 * This uses the Options and Statistics objects set in the constructor.
 	 * 
 	 */
-	public Statistics formatInputFile() {
+	public Capsule formatInputFile(Capsule theCapsule) {
+		
+		this.capsule = theCapsule;
+		this.opts = capsule.getOptions();
+		this.stats = capsule.getStatistics();
 		
 		List<FormatFilter> goList;
 		
 		goList = buildGoList();
 		
 		//iterate through the list and apply each filter.
-		for(FormatFilter f : goList) {
-			f.format();
+		//this version of a for loop ensures the proper order.
+		//a for-each loop might not execute the the right order.
+		for(int i=0; i < goList.size(); ++i) {
+			goList.get(i).format();
 		}
 		
-		return stats;
+		return capsule;
 	}//end formatInFile()
 		
 	
@@ -68,7 +76,7 @@ public class Formatter {
 		//count the blank lines
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(stats.getInputFile());
+		params.setInFile(capsule.getInputFile());
 		outfile = Paths.get("stage1");
 		params.setOutFile(outfile);
 		output.add(new CountBlanksFilter(params));
@@ -105,7 +113,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(outfile);
-		params.setOutFile(stats.getOutputFile());
+		params.setOutFile(capsule.getOutputFile());
 		output.add(new JustyFilter(params));
 		
 		return output;
