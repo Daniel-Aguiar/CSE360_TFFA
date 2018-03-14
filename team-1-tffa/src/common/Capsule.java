@@ -58,15 +58,12 @@ public class Capsule {
         this.opts = obj;
     }
 
-    
-    /* Lance's Code */
-	//these two functions are needed if you ever want to do things like put objects of this class into a container.
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((inputFile == null) ? 0 : inputFile.hashCode());
-		result = prime * result + ((stats == null) ? 0 : stats.hashCode());
+		result = prime * result + ((outputFile == null) ? 0 : outputFile.hashCode());
 		return result;
 	}
 
@@ -84,13 +81,15 @@ public class Capsule {
 				return false;
 		} else if (!inputFile.equals(other.inputFile))
 			return false;
-		if (stats == null) {
-			if (other.stats != null)
+		if (outputFile == null) {
+			if (other.outputFile != null)
 				return false;
-		} else if (!stats.equals(other.stats))
+		} else if (!outputFile.equals(other.outputFile))
 			return false;
 		return true;
 	}
+
+    
 
 }//end class
 
