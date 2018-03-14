@@ -37,7 +37,7 @@ public class Controller {
     		cap.setOptions(opts);
     		
     		Formatter fmt = new Formatter(cap);
-    		cap = fmt.format();
+    		cap = fmt.formatInputFile();
     		
     		Formatter anlyz = new Analyzer(cap);
     		cap = anlyz.analyze();
