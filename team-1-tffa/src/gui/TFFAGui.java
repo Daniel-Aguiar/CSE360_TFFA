@@ -3,6 +3,7 @@ package gui;
 import java.awt.*;
 import javax.swing.*;
 import common.*;
+import controller.*;
 
 @SuppressWarnings("serial")
 public class TFFAGui extends JFrame{
@@ -72,6 +73,7 @@ public class TFFAGui extends JFrame{
 		getContentPane().add(bottomHalfOfFrame, c);
 
 		setSize(600, 350);
+		setTitle("Text File Formatter and Analizer");
 		setVisible(true);
 	}
 
@@ -96,8 +98,8 @@ public class TFFAGui extends JFrame{
 		return opts;
 	}
 	
-	//TODO: Fill this stub
 	void startController() {
-		
+		Controller cont = Controller.getInstance();
+		addStats(cont.goFormat(this).getStatistics());
 	}
 }

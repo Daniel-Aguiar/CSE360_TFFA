@@ -3,26 +3,23 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
 @SuppressWarnings("serial")
-class FileIOPanel extends JPanel{
+class FileIOPanel extends JPanel {
 	private JFileChooser fileChooser;
-	
+
 	private JLabel inputLabel;
 	private JLabel outputLabel;
 	private JButton browseInputBtn;
 	private JButton browseOutputBtn;
 	private JTextField inputField;
 	private JTextField outputField;
-		
-	FileIOPanel(LayoutManager layout){
+
+	FileIOPanel(LayoutManager layout) {
 		setLayout(layout);
-		
+
 		inputLabel = new JLabel("Input File");
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
@@ -80,8 +77,8 @@ class FileIOPanel extends JPanel{
 		browseOutputBtn.addActionListener(new OutputListener());
 		add(browseOutputBtn, c);
 	}
-	
-	private class InputListener implements ActionListener{
+
+	private class InputListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			if (fileChooser == null) {
@@ -89,40 +86,23 @@ class FileIOPanel extends JPanel{
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
 				fileChooser.setAcceptAllFileFilterUsed(false);
 			}
-			
+
 			int fileSelectVal = fileChooser.showDialog(browseInputBtn.getParent().getParent(), "Select");
-			
+
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				String inputFile = "";
-				String fileType;
+				FileErrorType errorType = FileError.hasFileErrorInput(file, getOutputFile());
 				
-				try {
-					fileType = Files.probeContentType(file.toPath());
-				} catch(IOException e) {
-					new FileError(FileErrorType.ERROR);
-					return;
+				if (errorType != FileErrorType.NONE) {
+					FileError.showErrorMessage(errorType, FileIOPanel.this.getParent());
 				}
-				
-				if (!file.canRead() || !fileType.equals("text/plain")) {
-					new FileError(FileErrorType.READ);
-					return;
-				} else 
-					inputFile = file.getPath();
-				
-				String outputFile = getOutputFile();
-				if (inputFile.equals(outputFile)) {
-					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
-					setInputFile("");
-					return;
-				}
-				
-				setInputFile(inputFile);
+				else
+					setInputFile(file.getPath());
 			}
 		}
 	}
-	
-	private class OutputListener implements ActionListener{
+
+	private class OutputListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			if (fileChooser == null) {
@@ -130,58 +110,36 @@ class FileIOPanel extends JPanel{
 				fileChooser.setFileFilter(new FileNameExtensionFilter("Text files", "txt"));
 				fileChooser.setAcceptAllFileFilterUsed(false);
 			}
-			
+
 			int fileSelectVal = fileChooser.showDialog(browseOutputBtn.getParent().getParent(), "Select");
-			
+
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				String outputFile = "";
-				String fileType;
+				FileErrorType errorType = FileError.hasFileErrorOutput(file, getInputFile());
 				
-				try {
-					fileType = Files.probeContentType(file.toPath());
-				} catch(IOException e) {
-					new FileError(FileErrorType.ERROR);
-					return;
-				}
-				
-				if (file.exists() && !(file.canWrite() && fileType.equals("text/plain"))) {
-					new FileError(FileErrorType.WRITE);
-					return;
-				}
-				else if (!file.exists()) {
-					try {
-						file.createNewFile();
-						setOutputFile(file.getPath());
-					} catch (IOException e) {
-						new FileError(FileErrorType.ERROR);
-						return;
-					}
-				} else {
-					outputFile = file.getPath();
-				}
-				
-				String inputFile = getInputFile();
-				if (outputFile.equals(inputFile)) {
-					new FileError(FileErrorType.SAME_INPUT_OUTPUT);
+				if (errorType != FileErrorType.NONE) {
+					FileError.showErrorMessage(errorType, FileIOPanel.this.getParent());
 					setOutputFile("");
-					return;
 				}
-				
-				setOutputFile(outputFile);
+				else
+					setOutputFile(file.getPath());
 			}
 		}
 	}
-	
+
 	void setInputFile(String file) {
 		inputField.setText(file);
 	}
-	
-	String getInputFile() { return inputField.getText(); }
-	
+
+	String getInputFile() {
+		return inputField.getText();
+	}
+
 	void setOutputFile(String file) {
 		outputField.setText(file);
 	}
-	
-	String getOutputFile() { return outputField.getText(); }
+
+	String getOutputFile() {
+		return outputField.getText();
+	}
 }

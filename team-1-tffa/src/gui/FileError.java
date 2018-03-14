@@ -1,65 +1,90 @@
 package gui;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import javax.swing.*;
 
-@SuppressWarnings("serial")
-class FileError extends JDialog{
-
-	FileError(FileErrorType error){
-		setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-		setLayout(new GridBagLayout());
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
-		ImageIcon errorImage = new ImageIcon("src/gui/StockErrorImage.jpg", "Error image");
-		
-		JLabel message = new JLabel(errorImage, SwingConstants.LEFT);
-		//message.setIconTextGap(10);
+class FileError{
+	static void showErrorMessage(FileErrorType error, Component parent) {
 		switch(error) {
 		case READ:
-			message.setText("Invalid input file.");
+			JOptionPane.showMessageDialog(parent, "Invalid input file", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
 			
 		case WRITE:
-			message.setText("Invalid output file.");
+			JOptionPane.showMessageDialog(parent, "Invalid output file", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
 			
 		case SAME_INPUT_OUTPUT:
-			message.setText("Cannot overwrite input file.");
+			JOptionPane.showMessageDialog(parent, "Cannot overwrite input file", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
 			
 		case ERROR:
-			message.setText("An error occurred.");
+			JOptionPane.showMessageDialog(parent, "An error occurred", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
+			
+		case NONE: break; //Do nothing!
 		}
-		message.setFont(new Font(null, Font.BOLD, 12));
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(10,0,0,0);
-		add(message, c);
-				
-		JButton close = new JButton("Ok");
-		close.addActionListener(new CloseListener());
-		c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 1;
-		c.gridwidth = 2;
-		c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(10,100,10,100);
-		add(close, c);
-		
-		setResizable(false);
-		pack();
-		setVisible(true);
+	}
+
+	static FileErrorType hasFileErrorOutput(File file, String inputFile) {
+		FileErrorType errorType = FileErrorType.NONE;
+		String outputFile = "";
+		String fileType = "";
+
+		try {
+			fileType = Files.probeContentType(file.toPath());
+		} catch (IOException e) {
+			errorType = FileErrorType.ERROR;
+		}
+
+		//If there was no exception above
+		if (errorType == FileErrorType.NONE) {
+			if (file.exists() && !(file.canWrite() && fileType.equals("text/plain"))) {
+				errorType = FileErrorType.WRITE;
+			} else if (!file.exists()) {
+				try {
+					file.createNewFile();
+					outputFile = file.getPath();
+				} catch (IOException e) {
+					errorType = FileErrorType.ERROR;
+					if (!file.exists()) errorType = FileErrorType.WRITE;
+				}
+			} else {
+				outputFile = file.getPath();
+			}
+		}
+
+		if (!outputFile.isEmpty() && outputFile.equals(inputFile))
+			errorType = FileErrorType.SAME_INPUT_OUTPUT;
+
+		return errorType;
 	}
 	
-	private class CloseListener implements ActionListener{
-		@Override
-		public void actionPerformed(ActionEvent evt) {
-			FileError.this.dispose();
+	static FileErrorType hasFileErrorInput(File file, String outputFile) {
+		FileErrorType errorType = FileErrorType.NONE;
+		String inputFile = "";
+		String fileType = "";
+
+		try {
+			fileType = Files.probeContentType(file.toPath());
+		} catch (IOException e) {
+			errorType = FileErrorType.ERROR;
 		}
+
+		//If there was no exception above
+		if (errorType == FileErrorType.NONE) {
+			if (!(file.canRead() && fileType.equals("text/plain")))
+				errorType = FileErrorType.READ;
+			else
+				inputFile = file.getPath();
+		}
+
+		if (!inputFile.isEmpty() && inputFile.equals(outputFile))
+			errorType = FileErrorType.SAME_INPUT_OUTPUT;
+
+		return errorType;
 	}
 }

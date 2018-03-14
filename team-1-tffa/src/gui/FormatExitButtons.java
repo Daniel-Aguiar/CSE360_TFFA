@@ -3,9 +3,6 @@ package gui;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-
 import javax.swing.*;
 
 @SuppressWarnings("serial")
@@ -40,49 +37,18 @@ class FormatExitButtons extends JPanel{
 	private class FormatButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			FileErrorType error;
+			
 			File inputFile = new File(mainFrame.getInputFileName());
-			if (!inputFile.canRead()) {
-				new FileError(FileErrorType.READ);
-				return;
-			}
-			
-			try {
-				if (!Files.probeContentType(inputFile.toPath()).equals("text/plain")) {
-					new FileError(FileErrorType.READ);
-					return;
-				}
-			} catch (IOException e) {
-				new FileError(FileErrorType.ERROR);
-				return;
-			}
-			
+			FileErrorType inputErrorType = FileError.hasFileErrorInput(inputFile, mainFrame.getOutputFileName());
 			File outputFile = new File(mainFrame.getOutputFileName());
-			if (!outputFile.exists()) {
-				String fileType;
-				
-				try {
-					outputFile.createNewFile();
-					fileType = Files.probeContentType(outputFile.toPath());
-				} catch (IOException e) {
-					new FileError(FileErrorType.ERROR);
-					return;
-				}
-				
-				if (!fileType.equals("text/plain")) {
-					new FileError(FileErrorType.WRITE);
-					return;
-				}
-			}
+			FileErrorType outputErrorType = FileError.hasFileErrorOutput(outputFile, mainFrame.getInputFileName());
 			
-			if (!outputFile.canWrite()) {
-				new FileError(FileErrorType.WRITE);
-				return;
-			} else if (outputFile.equals(inputFile)) {
-				new FileError(FileErrorType.SAME_INPUT_OUTPUT);
-				return;
-			}
-			
-			mainFrame.startController();
+			if (inputErrorType != FileErrorType.NONE || outputErrorType != FileErrorType.NONE) {
+				error = (inputErrorType != FileErrorType.NONE) ? inputErrorType : outputErrorType;
+				FileError.showErrorMessage(error, mainFrame);
+			} else
+				/*mainFrame.startController()*/;
 		}
 	}
 	
