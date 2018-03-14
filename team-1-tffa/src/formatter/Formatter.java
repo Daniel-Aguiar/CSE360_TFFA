@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.Capsule;
 import common.Options;
 import common.Statistics;
 
@@ -23,11 +24,13 @@ public class Formatter {
 	
 	private Options opts;
 	private Statistics stats;
+	private Capsule caps;
 	
 	
-	public Formatter(Statistics stats, Options opts) {
-		this.opts = opts;
-		this.stats = stats;
+	public Formatter(Capsule capsule) {
+		this.opts = capsule.getOptions();
+		this.stats = capsule.getStatistics();
+		this.caps = capsule;
 	}
 	
 	
@@ -36,7 +39,7 @@ public class Formatter {
 	 * This uses the Options and Statistics objects set in the constructor.
 	 * 
 	 */
-	public Statistics formatInputFile() {
+	public Capsule formatInputFile() {
 		
 		List<FormatFilter> goList;
 		
@@ -47,7 +50,7 @@ public class Formatter {
 			f.format();
 		}
 		
-		return stats;
+		return caps;
 	}//end formatInFile()
 		
 	
@@ -68,7 +71,7 @@ public class Formatter {
 		//count the blank lines
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(stats.getInputFile());
+		params.setInFile(caps.getInputFile());
 		outfile = Paths.get("stage1");
 		params.setOutFile(outfile);
 		output.add(new CountBlanksFilter(params));
@@ -105,7 +108,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(outfile);
-		params.setOutFile(stats.getOutputFile());
+		params.setOutFile(caps.getOutputFile());
 		output.add(new JustyFilter(params));
 		
 		return output;
