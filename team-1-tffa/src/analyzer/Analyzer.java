@@ -36,12 +36,11 @@ public class Analyzer
 		
 		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
 		    String line = null;
-		    int size = 0;
 		    
 		    while ((line = reader.readLine()) != null) {
 			    	String[] split = line.split(" ");
-			    	size = split.length;
-			    	words += size;
+				if(split[i].equals(""));	// Empty indices caused by spaces after right justification. Don't count these.
+			    	else	words++;
 		    }
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);
