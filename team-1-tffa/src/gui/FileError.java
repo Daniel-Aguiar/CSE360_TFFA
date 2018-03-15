@@ -70,6 +70,11 @@ class FileError{
 
 		try {
 			fileType = Files.probeContentType(file.toPath());
+			if (fileType == null) {
+				inputFile = file.getPath();
+				int index = inputFile.lastIndexOf('.');
+				fileType = (index == -1) ? "" : inputFile.substring(index + 1);
+			}
 		} catch (IOException e) {
 			errorType = FileErrorType.ERROR;
 		}
