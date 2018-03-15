@@ -41,7 +41,13 @@ public class JustyFilter extends FormatFilter {
 					}//end while
 				}catch (IOException e) {}
 			} catch (IOException e) {}
-		}//end if left check
+		} else { //copy the input file to the output file since we didn't do anything.
+			try {
+				Files.copy(params.getInFile(), params.getOutFile(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		
 		
 	}//end format()

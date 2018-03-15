@@ -39,8 +39,6 @@ public class Controller {
     		cap.setOutputFile(outputPathName);
     		cap.setOptions(opts);
     		
-    		System.out.println("input file in controller is: " + cap.getInputFile().toString());
-    		
     		Formatter fmt = new Formatter(cap);
     		cap = fmt.formatInputFile();
     		

@@ -81,7 +81,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(caps.getInputFile());
-		outfile = Paths.get("stage2");
+		outfile = Paths.get("1cr");
 		params.setOutFile(outfile);
 		output.add(new RemoveCRFilter(params));
 
@@ -90,7 +90,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(outfile);
-		outfile = Paths.get("stage3");
+		outfile = Paths.get("2ws");
 		params.setOutFile(outfile);
 		output.add(new WhitespaceFilter(params));
 		
@@ -99,7 +99,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(outfile);
-		outfile = Paths.get("stage4");
+		outfile = Paths.get("3ll");
 		params.setOutFile(outfile);
 		output.add(new LineLengthFilter(params));
 		
