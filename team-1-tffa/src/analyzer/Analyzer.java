@@ -75,7 +75,7 @@ public class Analyzer
 		
 		String curLine = null;
 		
-		try (BufferedReader reader = Files.newBufferedReader(capsule.getInputFile())){
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())){
 			while ((curLine = reader.readLine()) != null) {
 					lines++;
 			}//end while
