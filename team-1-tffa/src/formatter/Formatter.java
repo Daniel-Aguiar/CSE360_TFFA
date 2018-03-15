@@ -39,15 +39,21 @@ public class Formatter {
 	 * This uses the Options and Statistics objects set in the constructor.
 	 * 
 	 */
-	public Capsule formatInputFile() {
+	public Capsule formatInputFile(Capsule theCapsule) {
+		
+		this.caps = theCapsule;
+		this.opts = caps.getOptions();
+		this.stats = caps.getStatistics();
 		
 		List<FormatFilter> goList;
 		
 		goList = buildGoList();
 		
 		//iterate through the list and apply each filter.
-		for(FormatFilter f : goList) {
-			f.format();
+		//this version of a for loop ensures the proper order.
+		//a for-each loop might not execute the the right order.
+		for(int i=0; i < goList.size(); ++i) {
+			goList.get(i).format();
 		}
 		
 		return caps;
