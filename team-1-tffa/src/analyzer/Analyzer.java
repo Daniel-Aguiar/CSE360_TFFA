@@ -1,38 +1,38 @@
-import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Analyzer 
 {
-	private int wordCount;		// # words
-	private int lineCount;		// # lines
-	//private int blankLineCount;	// # blank lines removed
-	private double avgWpL;		// avg words per line
-	private double avgLL;		// avg line length
-	//private ArrayList<WordData> list = new ArrayList<WordData>();	// To hold words and their occurrences.
+	private int wordCount;		// Total # of words
+	private int lineCount;		// Total # of lines
+	private double avgWpL;		// Average words per line
+	private double avgLL;		// Average line length
+	private Capsule capsule;	// Capsule that will be updated with new Statistics
+	private Path outputFile;	// Path to output file
 	
-	public Capsule analyze(Capsule cap)
+	public Analyzer(Capsule cap)
 	{
-		Path outputFile = cap.getOutputFile();
-		
-		wordCount = countWords(outputFile);
-		lineCount = countLines(outputFile);
-		//blankLineCount = getBlankLines(cap);	// Don't need this method. Formatter fills this field.
-		avgWpL = calcAvgWpL(wordCount, lineCount);
-		avgLL = calcAvgLL(lineCount, outputFile);
-		updateStatistics(wordCount, lineCount, avgWpL, avgLL, cap);
-		return cap;
+		capsule = cap;
+		outputFile = cap.getOutputFile();
 	}
 	
-	private int countWords(Path file) 
+	public Capsule analyze()
+	{	
+		wordCount = countWords();
+		lineCount = countLines();
+		avgWpL = calcAvgWpL();
+		avgLL = calcAvgLL();
+		updateStatistics();
+		return capsule;
+	}
+	
+	private int countWords() 
 	{
 		int words = 0;
 		
-		try (BufferedReader reader = new BufferedReader(new StringReader(file.toString()))) {
+		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
 		    String line = null;
 		    int size = 0;
 		    
@@ -48,11 +48,11 @@ public class Analyzer
 		return words;
 	}
 	
-	private int countLines(Path file) 
+	private int countLines() 
 	{
 		int lines = 0;
 		
-		try (BufferedReader reader = new BufferedReader(new StringReader(file.toString()))) {
+		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
 		    String line = null;
 		    while ((line = reader.readLine()) != null) {
 		    	lines++;
@@ -63,31 +63,23 @@ public class Analyzer
 		
 		return lines;
 	}
-	
-	/*
-	private int getBlankLines(Capsule cap)
-	{
-		Statistics temp;
-		temp = cap.getStatistics();
-		return temp.getBlankLines();
-	}
-	*/
-	
-	private double calcAvgWpL(int wordCount, int lineCount) 
+
+	private double calcAvgWpL() 
 	{
 		double avgWpL = 0;
 		
-		avgWpL = wordCount / lineCount;
+		//	Calculate average words per line.
+		avgWpL = (double)wordCount / lineCount;
 		return avgWpL;
 	}
 	
-	private double calcAvgLL(int lineCount, Path file) 
+	private double calcAvgLL()
 	{
 		double avgLL = 0;
 		int totalLineLength = 0;
 
 		// Calculate total line length of the file.
-		try (BufferedReader reader = new BufferedReader(new StringReader(file.toString()))) {
+		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
 		    String line = null;
 		    while ((line = reader.readLine()) != null) {
 		    	totalLineLength += line.length();
@@ -96,16 +88,17 @@ public class Analyzer
 		    System.err.format("IOException: %s%n", x);
 		}
 		
-		avgLL = lineCount / totalLineLength;
+		//	Calculate average line length.
+		avgLL = (double)totalLineLength / lineCount;
 		return avgLL;
 	}
-	
-	private void updateStatistics(int wordCount, int lineCount, double avgWpL, double avgLL, Capsule cap)
+
+	private void updateStatistics()
 	{
-		cap.getStatistics().setTotalWords(wordCount);
-		cap.getStatistics().setTotalLines(lineCount);
-		// Blank lines removed was already filled in by Formatter.
-		cap.getStatistics().setAvgWpL(avgWpL);
-		cap.getStatistics().setAvgLL(avgLL);
+		capsule.getStatistics().setTotalWords(wordCount);
+		capsule.getStatistics().setTotalLines(lineCount);
+		// Blank lines removed has already been filled in by Formatter.
+		capsule.getStatistics().setAvgWpL(avgWpL);
+		capsule.getStatistics().setAvgLL(avgLL);
 	}
 }
