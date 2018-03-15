@@ -22,8 +22,8 @@ public class WhitespaceFilter extends FormatFilter {
 		//same code structure here from CountBlanksFilter 
 		try (Stream<String> lines = Files.lines(params.getInFile())) {
 			   List<String> replaced = lines
-			       .map(line-> line.replaceAll("\\t|  ", " ")) //this gets rid of all the odd number of spaces and tabs
-			       .map(line-> line.replaceAll("  ", " ")) //this gets rid of all the even number of spaces left over
+			       .map(line-> line.replaceAll("\\s{2,}", " ")) //regex to match 2 or more spaces and replace with 1
+			       .map(line-> line.replaceAll("\\t", " ")) //replace tabs with spaces.
 			       .collect(Collectors.toList());
 			   Files.write(params.getOutFile(), replaced);
 			}catch (IOException e) {
