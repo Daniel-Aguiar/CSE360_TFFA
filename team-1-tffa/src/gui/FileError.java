@@ -36,13 +36,18 @@ class FileError{
 
 		try {
 			fileType = Files.probeContentType(file.toPath());
+			if (fileType == null) {
+				outputFile = file.getPath();
+				int index = outputFile.lastIndexOf('.');
+				fileType = (index == -1) ? "" : outputFile.substring(index + 1);
+			}
 		} catch (IOException e) {
 			errorType = FileErrorType.ERROR;
 		}
 
 		//If there was no exception above
 		if (errorType == FileErrorType.NONE) {
-			if (file.exists() && !(file.canWrite() && fileType.equals("text/plain"))) {
+			if (file.exists() && !(file.canWrite() && (fileType.equals("text/plain")) || fileType.equals("txt"))) {
 				errorType = FileErrorType.WRITE;
 			} else if (!file.exists()) {
 				try {
@@ -81,7 +86,7 @@ class FileError{
 
 		//If there was no exception above
 		if (errorType == FileErrorType.NONE) {
-			if (!(file.canRead() && fileType.equals("text/plain")))
+			if (!(file.canRead() && (fileType.equals("text/plain") || fileType.equals("txt"))))
 				errorType = FileErrorType.READ;
 			else
 				inputFile = file.getPath();
