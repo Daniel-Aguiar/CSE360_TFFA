@@ -1,7 +1,6 @@
 package common;
 
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class Capsule {
 
@@ -13,7 +12,7 @@ public class Capsule {
 
     /* No-arg constructor */
     public Capsule() {
-    		stats = new Statistics();
+		stats = new Statistics();
     } 
 
     /* Getters */
@@ -38,16 +37,8 @@ public class Capsule {
         this.outputFile = obj;
     }
 
-    public void setOutputFile(String filename) {
-		this.outputFile = Paths.get(filename);
-    }
-
     public void setInputFile(Path obj) {
         this.inputFile = obj;
-    }
-
-    public void setInputFile(String filename) {
-		this.outputFile = Paths.get(filename);
     }
 
     public void setStatistics(Statistics obj) {

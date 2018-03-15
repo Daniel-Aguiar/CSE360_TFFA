@@ -39,11 +39,7 @@ public class Formatter {
 	 * This uses the Options and Statistics objects set in the constructor.
 	 * 
 	 */
-	public Capsule formatInputFile(Capsule theCapsule) {
-		
-		this.caps = theCapsule;
-		this.opts = caps.getOptions();
-		this.stats = caps.getStatistics();
+	public Capsule formatInputFile() {
 		
 		List<FormatFilter> goList;
 		

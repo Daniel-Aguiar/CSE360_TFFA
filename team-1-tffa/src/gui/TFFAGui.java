@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.*;
+import java.net.URL;
+
 import javax.swing.*;
 import common.*;
 import controller.*;
@@ -40,6 +42,8 @@ public class TFFAGui extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(RESIZABLE);
 
+		setIcon();
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 0;
 		c.gridy = 0;
@@ -96,4 +100,14 @@ public class TFFAGui extends JFrame{
 		Capsule cap = cont.goFormat(this);
 		addStats(cap.getStatistics());
 	}
+	
+	private void setIcon() {
+	    URL iconURL = getClass().getResource("coolicon.png");
+	    
+	    if(iconURL != null) {
+	        this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));
+	    }
+	}//end setIcon
 }
+
+

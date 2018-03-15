@@ -48,7 +48,7 @@ class FormatExitButtons extends JPanel{
 				error = (inputErrorType != FileErrorType.NONE) ? inputErrorType : outputErrorType;
 				FileError.showErrorMessage(error, mainFrame);
 			} else
-				/*mainFrame.startController()*/;
+				mainFrame.startController();
 		}
 	}
 	

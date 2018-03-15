@@ -30,9 +30,12 @@ public class CountBlanksFilter extends FormatFilter {
 	
 	private int countBlankLines(Path theFile) {
 		
+		
 		int count = 0;
 	
 		try (BufferedReader reader = Files.newBufferedReader(theFile)){
+			
+			
 			String curLine;
 			while ((curLine = reader.readLine()) != null) {
 				  if (curLine.trim().isEmpty()) {
@@ -40,8 +43,8 @@ public class CountBlanksFilter extends FormatFilter {
 				  }
 				}//end while
 
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		return count;
