@@ -38,13 +38,16 @@ public class Analyzer
 		    String line = null;
 		    
 		    while ((line = reader.readLine()) != null) {
-		    	String[] split = line.split(" ");
-		    	
-		    	for(int i=1; i < split.length; i++)
-		    	{
-		    		if(split[i].equals("")); // Empty indices caused by spaces after right justification. Don't count these.
-		    		else words++;
-		    	}
+			    	String[] split = line.split(" ");
+			    	
+			    	for(int i = 0; i < split.length; i++)
+			    	{
+			    		if(split[i].equals("")) {
+			    			// Empty indices caused by spaces after right justification. Don't count these.
+			    		} else {
+			    			words++;
+			    		}
+			    	}
 		    }
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);
