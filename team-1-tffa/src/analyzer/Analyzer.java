@@ -1,7 +1,11 @@
+package analyzer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.nio.file.Path;
+
+import common.Capsule;
 
 public class Analyzer 
 {
