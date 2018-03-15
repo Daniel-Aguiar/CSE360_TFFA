@@ -3,6 +3,10 @@ package controller;
 import common.Capsule;
 import common.Options;
 import formatter.Formatter;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import analyzer.Analyzer;
 import gui.TFFAGui;
 
@@ -25,18 +29,20 @@ public class Controller {
     	
     		Capsule cap = new Capsule();
     		
-    		String inputPathName = gui.getInputFileName();
-    		String outputPathName = gui.getOutputFileName();
+    		Path inputPathName = Paths.get(gui.getInputFileName());
+    		Path outputPathName = Paths.get(gui.getOutputFileName());
     		Options opts = gui.getOptions();
-    		
+
     		opts.setMaxLineLength(80);
     		
     		cap.setInputFile(inputPathName);
     		cap.setOutputFile(outputPathName);
     		cap.setOptions(opts);
     		
-    		Formatter fmt = new Formatter(cap.getStatistics(), cap.getOptions());
-    		cap = fmt.formatInputFile(cap);
+    		System.out.println("input file in controller is: " + cap.getInputFile().toString());
+    		
+    		Formatter fmt = new Formatter(cap);
+    		cap = fmt.formatInputFile();
     		
     		Analyzer anlyz = new Analyzer(cap);
     		cap = anlyz.analyze();
