@@ -2,7 +2,6 @@ package controller;
 
 import common.Capsule;
 import common.Options;
-
 import formatter.Formatter;
 import analyzer.Analyzer;
 import gui.TFFAGui;
@@ -36,10 +35,10 @@ public class Controller {
     		cap.setOutputFile(outputPathName);
     		cap.setOptions(opts);
     		
-    		Formatter fmt = new Formatter(cap);
-    		cap = fmt.formatInputFile();
+    		Formatter fmt = new Formatter(cap.getStatistics(), cap.getOptions());
+    		cap = fmt.formatInputFile(cap);
     		
-    		Formatter anlyz = new Analyzer(cap);
+    		Analyzer anlyz = new Analyzer(cap);
     		cap = anlyz.analyze();
     		
     		return cap;
