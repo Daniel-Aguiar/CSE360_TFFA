@@ -71,7 +71,7 @@ public class LineLengthFilter extends FormatFilter {
 			end -= 1;
 		}
 		
-		if(A[end] != '\n' || end <= 0) {
+		if(A[end] == '\n' || end <= 0) {
 			end = -1;
 		} else {
 			A[end] = '\n';
