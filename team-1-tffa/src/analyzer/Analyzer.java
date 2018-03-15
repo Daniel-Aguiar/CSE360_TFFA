@@ -73,17 +73,15 @@ public class Analyzer
 		
 		int lines = 0;
 		
-		String curLine = null;
-		
 		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())){
-			while ((curLine = reader.readLine()) != null) {
+			while (reader.readLine() != null) {
 					lines++;
 			}//end while
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
-		return lines -1;
+		return lines;
 	}
 
 	private double calcAvgWpL() 
