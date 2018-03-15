@@ -37,7 +37,7 @@ public class Analyzer
 	{
 		int words = 0;
 		
-		try (BufferedReader reader = Files.newBufferedReader(capsule.getInputFile())) {
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
 		    String line = null;
 		    int size = 0;
 		    
