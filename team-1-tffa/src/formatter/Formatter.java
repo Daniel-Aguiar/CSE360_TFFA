@@ -78,15 +78,13 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(caps.getInputFile());
-		outfile = Paths.get("stage1");
-		params.setOutFile(outfile);
 		output.add(new CountBlanksFilter(params));
 
 		//strip off all newlines 
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(outfile);
+		params.setInFile(caps.getInputFile());
 		outfile = Paths.get("stage2");
 		params.setOutFile(outfile);
 		output.add(new RemoveCRFilter(params));

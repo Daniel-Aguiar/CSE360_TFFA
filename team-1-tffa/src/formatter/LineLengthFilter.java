@@ -1,6 +1,7 @@
 package formatter;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.file.Files;
 
 /**
@@ -20,9 +21,10 @@ public class LineLengthFilter extends FormatFilter {
 		int lineLen = params.getOpts().getMaxLineLength();
 		int end = lineLen;
 		int start = 0;
+		byte[] bytes = null;
 		
 		try {
-			byte[] bytes = Files.readAllBytes(params.getInFile());
+			bytes = Files.readAllBytes(params.getInFile());
 			
 			//iterate through the array MaxLineLen elements at a time
 			while (end < bytes.length) {
@@ -42,6 +44,14 @@ public class LineLengthFilter extends FormatFilter {
 			e.printStackTrace();
 		}//end try-catch
 		
+		//write the bytes to a file
+		try (OutputStream outStream = Files.newOutputStream(params.getOutFile())){
+			outStream.write(bytes);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+
 	}//end format()
 	
 	

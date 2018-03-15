@@ -58,8 +58,6 @@ public class Capsule {
         this.opts = obj;
     }
 
-    /* Lance's Code */
-	//these two functions are needed if you ever want to do things like put objects of this class into a container.
     @Override
 	public int hashCode() {
 		final int prime = 31;

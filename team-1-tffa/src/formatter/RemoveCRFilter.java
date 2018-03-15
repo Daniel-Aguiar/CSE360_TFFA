@@ -24,13 +24,12 @@ public class RemoveCRFilter extends FormatFilter {
 	public void format() {
 
 		try (Stream<String> lines = Files.lines(params.getInFile())) {
-		   List<String> replaced = lines
-		       .map(line-> line.replaceAll("\\r\\n|\\r|\\n", " "))
-		       .collect(Collectors.toList());
-		   Files.write(params.getOutFile(), replaced);
-		}catch (IOException e) {
-			  e.printStackTrace();
-		}
+			List<String> replaced = lines
+				//lambdas are pretty cool.  It's like scheme. 
+				.map(line-> line.replaceAll("\\r\\n|\\r|\\n", " ")) //replace all the possible newlines with spaces
+				.collect(Collectors.toList()); //this fires off the job since all this is lazy loading
+			Files.write(params.getOutFile(), replaced); //write the list to the output
+		}catch (IOException e) {}
 		
 	}//end format()
 

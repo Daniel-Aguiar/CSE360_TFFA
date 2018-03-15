@@ -19,9 +19,11 @@ public class WhitespaceFilter extends FormatFilter {
 
 	@Override
 	public void format() {
+		//same code structure here from CountBlanksFilter 
 		try (Stream<String> lines = Files.lines(params.getInFile())) {
 			   List<String> replaced = lines
-			       .map(line-> line.replaceAll("\\t|  ", " "))
+			       .map(line-> line.replaceAll("\\t|  ", " ")) //this gets rid of all the odd number of spaces and tabs
+			       .map(line-> line.replaceAll("  ", " ")) //this gets rid of all the even number of spaces left over
 			       .collect(Collectors.toList());
 			   Files.write(params.getOutFile(), replaced);
 			}catch (IOException e) {

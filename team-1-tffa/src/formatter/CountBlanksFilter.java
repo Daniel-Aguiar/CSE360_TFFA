@@ -2,7 +2,7 @@ package formatter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 
@@ -24,9 +24,7 @@ public class CountBlanksFilter extends FormatFilter {
 
 	@Override
 	public void format() {
-		
 		params.getStats().setBlankLines(countBlankLines(params.getInFile()));
-		
 	}//end format()
 
 	
@@ -34,16 +32,16 @@ public class CountBlanksFilter extends FormatFilter {
 		
 		int count = 0;
 	
-		BufferedReader reader = new BufferedReader(new StringReader("hello\n\nworld\n"));
-		String curLine;
-		try {
+		try (BufferedReader reader = Files.newBufferedReader(theFile)){
+			String curLine;
 			while ((curLine = reader.readLine()) != null) {
-			  if (curLine.trim().isEmpty()) {
-			    count++;
-			  }
-			}//end while
-		} catch (IOException e) {
-			e.printStackTrace();
+				  if (curLine.trim().isEmpty()) {
+				    count++;
+				  }
+				}//end while
+
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 		
 		return count;

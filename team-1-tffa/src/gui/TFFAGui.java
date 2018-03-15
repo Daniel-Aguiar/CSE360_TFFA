@@ -93,6 +93,7 @@ public class TFFAGui extends JFrame{
 	
 	void startController() {
 		Controller cont = Controller.getInstance();
-		addStats(cont.goFormat(this).getStatistics());
+		Capsule cap = cont.goFormat(this);
+		addStats(cap.getStatistics());
 	}
 }
