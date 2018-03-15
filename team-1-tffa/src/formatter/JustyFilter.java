@@ -21,21 +21,29 @@ public class JustyFilter extends FormatFilter {
 	@Override
 	public void format() {
 		
-		int lineLength = params.getOpts().getMaxLineLength();
 		
-		//only do anything if left justification is not set.
-		if(!params.getOpts().getJusty().equalsIgnoreCase("left")) {
+		
+		//only do anything if right justification is set.
+		if(params.getOpts().getJusty().equalsIgnoreCase("right")) {
+			int lineLength = params.getOpts().getMaxLineLength();
+			
 			try (BufferedReader reader = Files.newBufferedReader(params.getInFile())) {
 				try (BufferedWriter writer = Files.newBufferedWriter(params.getOutFile())) {
+					
 					String curLine = null;
 					while ((curLine = reader.readLine()) != null) {
 						if(curLine.length() < lineLength) {
-							int numSpaces = curLine.length() - lineLength;
+							
+							int numSpaces = lineLength - curLine.length();
+							
 							StringBuilder spaces = new StringBuilder();
+							
 							for(int i=0;i<numSpaces;++i) {
 								spaces.append(' ');
 							}//end for
+							
 							spaces.append(curLine);
+							spaces.append('\n');
 							writer.write(spaces.toString());
 						}//end line length check
 					}//end while
