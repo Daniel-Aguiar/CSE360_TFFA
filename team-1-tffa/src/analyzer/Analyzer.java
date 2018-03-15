@@ -3,6 +3,7 @@ package analyzer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 import common.Capsule;
@@ -54,15 +55,27 @@ public class Analyzer
 	
 	private int countLines() 
 	{
+//		int lines = 0;
+//		
+//		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
+//		    String line = null;
+//		    while ((line = reader.readLine()) != null) {
+//		    	lines++;
+//		    }
+//		} catch (IOException x) {
+//		    System.err.format("IOException: %s%n", x);
+//		}
+//		
+//		return lines;
+		
 		int lines = 0;
 		
-		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
-		    String line = null;
-		    while ((line = reader.readLine()) != null) {
-		    	lines++;
-		    }
-		} catch (IOException x) {
-		    System.err.format("IOException: %s%n", x);
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getInputFile())){
+			while (reader.readLine() != null) {
+				lines++;
+			}//end while
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		return lines;
