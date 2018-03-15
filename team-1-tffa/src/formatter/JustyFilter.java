@@ -45,7 +45,11 @@ public class JustyFilter extends FormatFilter {
 							spaces.append(curLine);
 							spaces.append('\n');
 							writer.write(spaces.toString());
-						}//end line length check
+							
+						} else {
+							curLine = curLine + '\n';
+							writer.write(curLine);//end line length check
+						}
 					}//end while
 				}catch (IOException e) {}
 			} catch (IOException e) {}
