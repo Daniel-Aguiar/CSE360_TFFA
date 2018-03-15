@@ -24,12 +24,13 @@ public class Formatter {
 	
 	private Options opts;
 	private Statistics stats;
+	private Capsule caps;
 	
-	private Capsule capsule;
 	
-	public Formatter(Statistics stats, Options opts) {
-		this.opts = opts;
-		this.stats = stats;
+	public Formatter(Capsule capsule) {
+		this.opts = capsule.getOptions();
+		this.stats = capsule.getStatistics();
+		this.caps = capsule;
 	}
 	
 	
@@ -40,9 +41,9 @@ public class Formatter {
 	 */
 	public Capsule formatInputFile(Capsule theCapsule) {
 		
-		this.capsule = theCapsule;
-		this.opts = capsule.getOptions();
-		this.stats = capsule.getStatistics();
+		this.caps = theCapsule;
+		this.opts = caps.getOptions();
+		this.stats = caps.getStatistics();
 		
 		List<FormatFilter> goList;
 		
@@ -55,7 +56,7 @@ public class Formatter {
 			goList.get(i).format();
 		}
 		
-		return capsule;
+		return caps;
 	}//end formatInFile()
 		
 	
@@ -76,16 +77,14 @@ public class Formatter {
 		//count the blank lines
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(capsule.getInputFile());
-		outfile = Paths.get("stage1");
-		params.setOutFile(outfile);
+		params.setInFile(caps.getInputFile());
 		output.add(new CountBlanksFilter(params));
 
 		//strip off all newlines 
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(outfile);
+		params.setInFile(caps.getInputFile());
 		outfile = Paths.get("stage2");
 		params.setOutFile(outfile);
 		output.add(new RemoveCRFilter(params));
@@ -113,7 +112,7 @@ public class Formatter {
 		params.setOpts(opts);
 		params.setStats(stats);
 		params.setInFile(outfile);
-		params.setOutFile(capsule.getOutputFile());
+		params.setOutFile(caps.getOutputFile());
 		output.add(new JustyFilter(params));
 		
 		return output;

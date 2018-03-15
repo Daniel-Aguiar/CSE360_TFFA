@@ -58,7 +58,7 @@ public class Capsule {
         this.opts = obj;
     }
 
-	@Override
+    @Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -88,8 +88,5 @@ public class Capsule {
 			return false;
 		return true;
 	}
-
-    
-
+	
 }//end class
-
