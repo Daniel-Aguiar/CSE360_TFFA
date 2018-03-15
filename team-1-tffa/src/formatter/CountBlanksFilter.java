@@ -34,8 +34,6 @@ public class CountBlanksFilter extends FormatFilter {
 		int count = 0;
 	
 		try (BufferedReader reader = Files.newBufferedReader(theFile)){
-			
-			
 			String curLine;
 			while ((curLine = reader.readLine()) != null) {
 				  if (curLine.trim().isEmpty()) {

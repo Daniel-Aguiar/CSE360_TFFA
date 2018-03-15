@@ -115,13 +115,4 @@ public class Formatter {
 		
 	}//end buildGoList()
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }//end class
