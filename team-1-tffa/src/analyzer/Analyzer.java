@@ -2,7 +2,6 @@ package analyzer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -15,12 +14,11 @@ public class Analyzer
 	private double avgWpL;		// Average words per line
 	private double avgLL;		// Average line length
 	private Capsule capsule;	// Capsule that will be updated with new Statistics
-	private Path outputFile;	// Path to output file
 	
 	public Analyzer(Capsule cap)
 	{
 		capsule = cap;
-		outputFile = cap.getOutputFile();
+		cap.getOutputFile();
 	}
 	
 	public Capsule analyze()
@@ -96,7 +94,7 @@ public class Analyzer
 		int totalLineLength = 0;
 
 		// Calculate total line length of the file.
-		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
 		    String line = null;
 		    while ((line = reader.readLine()) != null) {
 		    	totalLineLength += line.length();
@@ -107,6 +105,7 @@ public class Analyzer
 		
 		//	Calculate average line length.
 		avgLL = (double)totalLineLength / lineCount;
+		
 		return avgLL;
 	}
 
