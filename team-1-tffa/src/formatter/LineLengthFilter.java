@@ -2,8 +2,6 @@ package formatter;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.stream.Stream;
-
 
 /**
  * This class assumes the input file is one long string with no newlines and a single space between words.
