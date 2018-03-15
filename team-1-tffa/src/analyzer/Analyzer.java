@@ -37,14 +37,14 @@ public class Analyzer
 	{
 		int words = 0;
 		
-		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getInputFile())) {
 		    String line = null;
 		    int size = 0;
 		    
 		    while ((line = reader.readLine()) != null) {
-		    	String[] split = line.split(" ");
-		    	size = split.length;
-		    	words += size;
+			    	String[] split = line.split(" ");
+			    	size = split.length;
+			    	words += size;
 		    }
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);
