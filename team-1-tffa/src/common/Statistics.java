@@ -8,6 +8,7 @@ public class Statistics {
 	private int blankLines;
 	private double avgWpL;
 	private double avgLL;
+	private int totalSpaces;
 
 	// No - arg constructor sets all private members to 0
 	public Statistics() {
@@ -16,6 +17,15 @@ public class Statistics {
 		blankLines = 0;
 		avgWpL = 0;
 		avgLL = 0;
+		totalSpaces = 0;
+	}
+
+	public int getTotalSpaces() {
+		return totalSpaces;
+	}
+
+	public void setTotalSpaces(int totalSpaces) {
+		this.totalSpaces = totalSpaces;
 	}
 
 	/* Setters */
@@ -60,7 +70,6 @@ public class Statistics {
 		return avgLL;
 	}
 	
-	/* hashCode() and equals() for data class */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -72,6 +81,7 @@ public class Statistics {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + blankLines;
 		result = prime * result + totalLines;
+		result = prime * result + totalSpaces;
 		result = prime * result + totalWords;
 		return result;
 	}
@@ -92,6 +102,8 @@ public class Statistics {
 		if (blankLines != other.blankLines)
 			return false;
 		if (totalLines != other.totalLines)
+			return false;
+		if (totalSpaces != other.totalSpaces)
 			return false;
 		if (totalWords != other.totalWords)
 			return false;
