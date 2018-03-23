@@ -4,6 +4,15 @@ public class Options {
 
 	private String justy;
 	private int maxLineLength;
+	private int spacing;
+
+	public int getSpacing() {
+		return spacing;
+	}
+
+	public void setSpacing(int spacing) {
+		this.spacing = spacing;
+	}
 
 	//No-arg constructor
 	public Options() {}
@@ -26,13 +35,13 @@ public class Options {
 		return this.maxLineLength;
 	}
 
-	/* hashCode() and equals() for data class */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((justy == null) ? 0 : justy.hashCode());
 		result = prime * result + maxLineLength;
+		result = prime * result + spacing;
 		return result;
 	}
 
@@ -51,6 +60,8 @@ public class Options {
 		} else if (!justy.equals(other.justy))
 			return false;
 		if (maxLineLength != other.maxLineLength)
+			return false;
+		if (spacing != other.spacing)
 			return false;
 		return true;
 	}
