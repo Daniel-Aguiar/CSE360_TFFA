@@ -59,6 +59,7 @@ public class Formatter {
 	
 	/**
 	 * This sets the order for the format filters.
+	 * Really should have this as a builder or at least some kind of factory.
 	 * @return
 	 * A List<FormatFilter> that is to be executed in the order of their index. 
 	 */
@@ -102,6 +103,15 @@ public class Formatter {
 		outfile = Paths.get("3ll");
 		params.setOutFile(outfile);
 		output.add(new LineLengthFilter(params));
+		
+		//set  line spacing
+		params = new FilterParams();
+		params.setOpts(opts);
+		params.setStats(stats);
+		params.setInFile(outfile);
+		outfile = Paths.get("4ls");
+		params.setOutFile(outfile);
+		output.add(new LineSpaceFilter(params));
 		
 		//justify
 		params = new FilterParams();
