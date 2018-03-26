@@ -31,7 +31,7 @@ public class LineLengthFilter extends FormatFilter {
 				
 				end = replacePrevSpace(bytes, end);
 				
-				if(end < 0) { //it found a word that was 80 characters or longer
+				if(end < 0) { //it found a word that was MaxLineLen characters or longer
 					end = replaceNextSpace(bytes, start + lineLen);
 				}
 				
