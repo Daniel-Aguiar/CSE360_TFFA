@@ -32,8 +32,9 @@ public class Controller {
     		Path inputPathName = Paths.get(gui.getInputFileName());
     		Path outputPathName = Paths.get(gui.getOutputFileName());
     		Options opts = gui.getOptions();
-
-    		opts.setMaxLineLength(80);
+    		
+    		// Commented out for version 2 where the user sets the line length
+    		// opts.setMaxLineLength(80);
     		
     		cap.setInputFile(inputPathName);
     		cap.setOutputFile(outputPathName);
