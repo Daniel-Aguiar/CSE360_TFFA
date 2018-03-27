@@ -8,6 +8,7 @@ import common.*;
 class StatsBox extends JPanel{
 	private JLabel statTitle;
 	private JLabel words;
+	private JLabel spaces;
 	private JLabel totalLines;
 	private JLabel blankLines;
 	private JLabel avgWords;
@@ -33,12 +34,21 @@ class StatsBox extends JPanel{
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(words, c);
+		
+		spaces = new JLabel("Spaces: ");
+		spaces.setFont(new Font(null, Font.PLAIN, 12));
+		c = new GridBagConstraints();
+		c.gridx = 0;
+		c.gridy = 2;
+		c.insets = new Insets(5, 0, 0, 0);
+		c.anchor = GridBagConstraints.LINE_START;
+		add(spaces, c);
 
 		totalLines = new JLabel("Total Lines:  ");
 		totalLines.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(totalLines, c);
@@ -47,7 +57,7 @@ class StatsBox extends JPanel{
 		blankLines.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(blankLines, c);
@@ -56,7 +66,7 @@ class StatsBox extends JPanel{
 		avgWords.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 5;
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(avgWords, c);
@@ -65,7 +75,7 @@ class StatsBox extends JPanel{
 		avgLength.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
-		c.gridy = 5;
+		c.gridy = 6;
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(avgLength, c);
@@ -73,6 +83,7 @@ class StatsBox extends JPanel{
 	
 	void setStats(Statistics stats) {
 		words.setText(words.getText().replaceAll("[0-9]+", "") + stats.getTotalWords());
+		spaces.setText(spaces.getText().replaceAll("[0-9]+", "") + stats.getTotalSpaces());
 		totalLines.setText(totalLines.getText().replaceAll("[0-9]+", "") + stats.getTotalLines());
 		blankLines.setText(blankLines.getText().replaceAll("[0-9]+", "") + stats.getBlankLines());
 		avgWords.setText(avgWords.getText().replaceAll("[0-9]+\\.?[0-9]*", "") + String.format("%.2f", stats.getAvgWpL()));
