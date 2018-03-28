@@ -91,10 +91,10 @@ class FileIOPanel extends JPanel {
 
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				FileErrorType errorType = FileError.hasFileErrorInput(file, getOutputFile());
+				ErrorType errorType = Error.hasFileErrorInput(file, getOutputFile());
 				
-				if (errorType != FileErrorType.NONE) {
-					FileError.showErrorMessage(errorType, FileIOPanel.this.getParent());
+				if (errorType != ErrorType.NONE) {
+					Error.showErrorMessage(errorType, FileIOPanel.this.getParent());
 				}
 				else
 					setInputFile(file.getPath());
@@ -115,10 +115,10 @@ class FileIOPanel extends JPanel {
 
 			if (fileSelectVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
-				FileErrorType errorType = FileError.hasFileErrorOutput(file, getInputFile());
+				ErrorType errorType = Error.hasFileErrorOutput(file, getInputFile());
 				
-				if (errorType != FileErrorType.NONE) {
-					FileError.showErrorMessage(errorType, FileIOPanel.this.getParent());
+				if (errorType != ErrorType.NONE) {
+					Error.showErrorMessage(errorType, FileIOPanel.this.getParent());
 					setOutputFile("");
 				}
 				else
