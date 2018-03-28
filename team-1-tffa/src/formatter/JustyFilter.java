@@ -21,8 +21,6 @@ public class JustyFilter extends FormatFilter {
 	@Override
 	public void format() {
 		
-		
-		
 		//only do anything if right justification is set.
 		if(params.getOpts().getJusty().equalsIgnoreCase("right")) {
 			int lineLength = params.getOpts().getMaxLineLength();
@@ -34,17 +32,11 @@ public class JustyFilter extends FormatFilter {
 					while ((curLine = reader.readLine()) != null) {
 						if(curLine.length() < lineLength) {
 							
-							int numSpaces = lineLength - curLine.length();
+							if(params.getOpts().getJusty().equalsIgnoreCase("right"))
+								writer.write(addToBeginning(curLine, lineLength));
 							
-							StringBuilder spaces = new StringBuilder();
-							
-							for(int i=0;i<numSpaces;++i) {
-								spaces.append(' ');
-							}//end for
-							
-							spaces.append(curLine);
-							spaces.append('\n');
-							writer.write(spaces.toString());
+							if(params.getOpts().getJusty().equalsIgnoreCase("other"))
+								writer.write(addToMiddle(curLine, lineLength));
 							
 						} else {
 							curLine = curLine + '\n';
@@ -59,9 +51,109 @@ public class JustyFilter extends FormatFilter {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
-		
-		
+		}//end if-else tree 
 	}//end format()
 	
+	
+	//add a number of spaces to the beginning of the line
+	private String addToBeginning(String curLine, int maxLineLen) {
+		int numSpaces = maxLineLen - curLine.length();
+		
+		StringBuilder spaces = makeSpaces(numSpaces);
+		
+		spaces.append(curLine);
+		spaces.append('\n');
+		
+		return spaces.toString();
+	}//end addToBeginning()
+	
+	
+	//add a number of spaces between words.
+	private static String addToMiddle(String curLine, int maxLineLen) {
+
+		String[] words = curLine.split(" ");
+		int characters = countChars(words);
+		int wordIdx = 0;
+		
+		while(characters < maxLineLen) {
+
+			if(wordIdx >= words.length - 2) {
+				wordIdx = 0;
+			}
+			else {
+				++wordIdx;
+			}
+			
+			//add a space after the ith word
+			words[wordIdx] = words[wordIdx] + " ";
+			
+			characters = countChars(words);
+		}//end while
+		
+
+		StringBuilder output = new StringBuilder();
+		
+		for(int i = 0; i < words.length; ++i) {
+			output.append(words[i]);
+		}
+		
+		return output.toString();
+	}//end addToMiddle()
+
+	
+	//creates a StringBuilder containing a number of spaces. 
+	private StringBuilder makeSpaces(int numSpaces ) {
+		StringBuilder spaces = new StringBuilder();
+		
+		for(int i=0;i<numSpaces;++i) {
+			spaces.append(' ');
+		}//end for
+		
+		return spaces;
+		
+	}//end makeSpaces()
+	
+	
+	private static int countChars(String[] words) {
+		
+		int characters = 0;
+		
+		for(int j = 0; j < words.length; ++j) {
+			characters += words[j].length(); 
+		}
+		
+		return characters;
+	}//end countChars()
+	
 }//end class
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
