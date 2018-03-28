@@ -22,8 +22,8 @@ class Error{
 			break;
 			
 		case LINE_LENGTH_ERROR:
-			JOptionPane.showMessageDialog(parent, "Error with the line length. Must be a positive integer", "Error",  JOptionPane.ERROR_MESSAGE);
-		break;
+			JOptionPane.showMessageDialog(parent, "Error: Line length must contain a positive integer", "Error",  JOptionPane.ERROR_MESSAGE);
+			break;
 			
 		case ERROR:
 			JOptionPane.showMessageDialog(parent, "An error occurred", "Error", JOptionPane.ERROR_MESSAGE);

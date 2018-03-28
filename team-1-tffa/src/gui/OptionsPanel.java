@@ -10,7 +10,6 @@ import common.Justification;
 @SuppressWarnings("serial")
 class OptionsPanel extends JPanel{
 	private Justification justification;
-	private int lineLengthInt;
 	private int space;
 	
 	private JRadioButton leftJusty;
