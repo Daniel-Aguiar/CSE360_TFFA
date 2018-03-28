@@ -103,6 +103,8 @@ public class TFFAGui extends JFrame{
 		addStats(cap.getStatistics());
 	}
 	
+	String getLineLength() { return opts.getLineLengthString(); }
+	
 	private void setIcon() {
 	    URL iconURL = getClass().getResource("Teapot.png");
 	    

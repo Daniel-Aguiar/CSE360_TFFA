@@ -6,8 +6,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import javax.swing.*;
 
-class FileError{
-	static void showErrorMessage(FileErrorType error, Component parent) {
+class Error{
+	static void showErrorMessage(ErrorType error, Component parent) {
 		switch(error) {
 		case READ:
 			JOptionPane.showMessageDialog(parent, "Invalid input file", "Error", JOptionPane.ERROR_MESSAGE);
@@ -21,6 +21,10 @@ class FileError{
 			JOptionPane.showMessageDialog(parent, "Cannot overwrite input file", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
 			
+		case LINE_LENGTH_ERROR:
+			JOptionPane.showMessageDialog(parent, "Error with the line length. Must be a positive integer", "Error",  JOptionPane.ERROR_MESSAGE);
+		break;
+			
 		case ERROR:
 			JOptionPane.showMessageDialog(parent, "An error occurred", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
@@ -29,8 +33,8 @@ class FileError{
 		}
 	}
 
-	static FileErrorType hasFileErrorOutput(File file, String inputFile) {
-		FileErrorType errorType = FileErrorType.NONE;
+	static ErrorType hasFileErrorOutput(File file, String inputFile) {
+		ErrorType errorType = ErrorType.NONE;
 		String outputFile = "";
 		String fileType = "";
 
@@ -42,20 +46,20 @@ class FileError{
 				fileType = (index == -1) ? "" : outputFile.substring(index + 1);
 			}
 		} catch (IOException e) {
-			errorType = FileErrorType.ERROR;
+			errorType = ErrorType.ERROR;
 		}
 
 		//If there was no exception above
-		if (errorType == FileErrorType.NONE) {
+		if (errorType == ErrorType.NONE) {
 			if (file.exists() && !(file.canWrite() && (fileType.equals("text/plain")) || fileType.equals("txt"))) {
-				errorType = FileErrorType.WRITE;
+				errorType = ErrorType.WRITE;
 			} else if (!file.exists()) {
 				try {
 					file.createNewFile();
 					outputFile = file.getPath();
 				} catch (IOException e) {
-					errorType = FileErrorType.ERROR;
-					if (!file.exists()) errorType = FileErrorType.WRITE;
+					errorType = ErrorType.ERROR;
+					if (!file.exists()) errorType = ErrorType.WRITE;
 				}
 			} else {
 				outputFile = file.getPath();
@@ -63,13 +67,13 @@ class FileError{
 		}
 
 		if (!outputFile.isEmpty() && outputFile.equals(inputFile))
-			errorType = FileErrorType.SAME_INPUT_OUTPUT;
+			errorType = ErrorType.SAME_INPUT_OUTPUT;
 
 		return errorType;
 	}
 	
-	static FileErrorType hasFileErrorInput(File file, String outputFile) {
-		FileErrorType errorType = FileErrorType.NONE;
+	static ErrorType hasFileErrorInput(File file, String outputFile) {
+		ErrorType errorType = ErrorType.NONE;
 		String inputFile = "";
 		String fileType = "";
 
@@ -81,20 +85,27 @@ class FileError{
 				fileType = (index == -1) ? "" : inputFile.substring(index + 1);
 			}
 		} catch (IOException e) {
-			errorType = FileErrorType.ERROR;
+			errorType = ErrorType.ERROR;
 		}
 
 		//If there was no exception above
-		if (errorType == FileErrorType.NONE) {
+		if (errorType == ErrorType.NONE) {
 			if (!(file.canRead() && (fileType.equals("text/plain") || fileType.equals("txt"))))
-				errorType = FileErrorType.READ;
+				errorType = ErrorType.READ;
 			else
 				inputFile = file.getPath();
 		}
 
 		if (!inputFile.isEmpty() && inputFile.equals(outputFile))
-			errorType = FileErrorType.SAME_INPUT_OUTPUT;
+			errorType = ErrorType.SAME_INPUT_OUTPUT;
 
 		return errorType;
+	}
+	
+	static ErrorType hasLineLengthError(String lineLength) {
+		ErrorType error = ErrorType.NONE;
+		if (lineLength.matches("0*")) error = ErrorType.LINE_LENGTH_ERROR;
+		else if (!lineLength.matches("[0-9]+")) error = ErrorType.LINE_LENGTH_ERROR;
+		return error;
 	}
 }
