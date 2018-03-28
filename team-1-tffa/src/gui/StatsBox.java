@@ -15,6 +15,16 @@ class StatsBox extends JPanel{
 	private JLabel avgLength;
 
 	StatsBox(LayoutManager layout){
+		
+		// variables for only this branch
+		int WC = 325; // word count
+		int SS = 137; // spaces
+		int TL = 34;  // total lines
+		int BL = 982; // blank lines
+		double aWPL = 84.33; // average words per line
+		double aLL = 993.22; // average lines per line
+		
+		
 		setLayout(layout);
 		setBorder(BorderFactory.createEtchedBorder());
 
@@ -26,7 +36,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(statTitle, c);
 
-		words = new JLabel("Words: 325");
+		words = new JLabel("Words: " + WC);
 		words.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -35,7 +45,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(words, c);
 
-		spaces = new JLabel("Spaces: 137");
+		spaces = new JLabel("Spaces: " + SS);
 		spaces.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -44,7 +54,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(spaces, c);
 
-		totalLines = new JLabel("Total Lines:  34");
+		totalLines = new JLabel("Total Lines: " + TL);
 		totalLines.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -53,7 +63,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(totalLines, c);
 
-		blankLines = new JLabel("Blank Lines: 8");
+		blankLines = new JLabel("Blank Lines: " + BL);
 		blankLines.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -62,7 +72,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(blankLines, c);
 
-		avgWords = new JLabel("Average Words Per Line: 9.2");
+		avgWords = new JLabel("Average Words Per Line: " + aWPL);
 		avgWords.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -71,7 +81,7 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(avgWords, c);
 
-		avgLength = new JLabel("Average Line Length: 52");
+		avgLength = new JLabel("Average Line Length: " + aLL);
 		avgLength.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
 		c.gridx = 0;
