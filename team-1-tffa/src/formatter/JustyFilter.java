@@ -69,18 +69,35 @@ public class JustyFilter extends FormatFilter {
 	
 	
 	//add a number of spaces between words.
-	private String addToMiddle(String curLine, int maxLineLen) {
+	private static String addToMiddle(String curLine, int maxLineLen) {
+
+		String[] words = curLine.split(" ");
+		int characters = countChars(words);
+		int wordIdx = 0;
 		
-		int numSpaces = (maxLineLen - curLine.length()) / curLine.split(" ").length;
+		while(characters < maxLineLen) {
+
+			if(wordIdx >= words.length - 2) {
+				wordIdx = 0;
+			}
+			else {
+				++wordIdx;
+			}
+			
+			//add a space after the ith word
+			words[wordIdx] = words[wordIdx] + " ";
+			
+			characters = countChars(words);
+		}//end while
 		
-		StringBuilder spaces = makeSpaces(numSpaces);
-		StringBuilder formattedLine = new StringBuilder();
+
+		StringBuilder output = new StringBuilder();
 		
-		formattedLine.append(curLine.replaceAll(" ", spaces.toString()));
-		formattedLine.append('\n');
+		for(int i = 0; i < words.length; ++i) {
+			output.append(words[i]);
+		}
 		
-		return formattedLine.toString();
-		
+		return output.toString();
 	}//end addToMiddle()
 
 	
@@ -96,6 +113,17 @@ public class JustyFilter extends FormatFilter {
 		
 	}//end makeSpaces()
 	
+	
+	private static int countChars(String[] words) {
+		
+		int characters = 0;
+		
+		for(int j = 0; j < words.length; ++j) {
+			characters += words[j].length(); 
+		}
+		
+		return characters;
+	}//end countChars()
 	
 }//end class
 
