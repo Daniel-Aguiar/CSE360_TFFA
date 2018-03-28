@@ -98,9 +98,10 @@ public class TFFAGui extends JFrame{
 	}
 	
 	void startController() {
-		Controller cont = Controller.getInstance();
-		Capsule cap = cont.goFormat(this);
-		addStats(cap.getStatistics());
+		// Do nothing so I can display stats
+//		Controller cont = Controller.getInstance();
+//		Capsule cap = cont.goFormat(this);
+//		addStats(cap.getStatistics());
 	}
 	
 	private void setIcon() {

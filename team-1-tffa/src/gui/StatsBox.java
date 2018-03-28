@@ -13,11 +13,11 @@ class StatsBox extends JPanel{
 	private JLabel blankLines;
 	private JLabel avgWords;
 	private JLabel avgLength;
-	
+
 	StatsBox(LayoutManager layout){
 		setLayout(layout);
 		setBorder(BorderFactory.createEtchedBorder());
-		
+
 		statTitle = new JLabel("Statistics");
 		statTitle.setFont(new Font(null, Font.BOLD, 14));
 		GridBagConstraints c = new GridBagConstraints();
@@ -34,7 +34,7 @@ class StatsBox extends JPanel{
 		c.insets = new Insets(5, 0, 0, 0);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(words, c);
-		
+
 		spaces = new JLabel("Spaces: ");
 		spaces.setFont(new Font(null, Font.PLAIN, 12));
 		c = new GridBagConstraints();
@@ -80,13 +80,13 @@ class StatsBox extends JPanel{
 		c.anchor = GridBagConstraints.LINE_START;
 		add(avgLength, c);
 	}
-	
+
 	void setStats(Statistics stats) {
-		words.setText(words.getText().replaceAll("[0-9]+", "") + stats.getTotalWords());
-		spaces.setText(spaces.getText().replaceAll("[0-9]+", "") + stats.getTotalSpaces());
-		totalLines.setText(totalLines.getText().replaceAll("[0-9]+", "") + stats.getTotalLines());
-		blankLines.setText(blankLines.getText().replaceAll("[0-9]+", "") + stats.getBlankLines());
-		avgWords.setText(avgWords.getText().replaceAll("[0-9]+\\.?[0-9]*", "") + String.format("%.2f", stats.getAvgWpL()));
-		avgLength.setText(avgLength.getText().replaceAll("[0-9]+\\.?[0-9]*", "") + String.format("%.2f", stats.getAvgLL()));
+		words.setText("me");
+		spaces.setText("me");
+		totalLines.setText("me");
+		blankLines.setText("me");
+		avgWords.setText("me");
+		avgLength.setText("me");
 	}
 }
