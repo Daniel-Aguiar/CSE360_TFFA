@@ -5,9 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import common.Justification;
+
 @SuppressWarnings("serial")
 class OptionsPanel extends JPanel{
-	private String justification;
+	private Justification justification;
 	private int lineLengthInt;
 	private int space;
 	
@@ -90,13 +92,12 @@ class OptionsPanel extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			
-			//TODO: Change justification to an enum type
 			if (justifyGroup.isSelected(leftJusty.getModel()))
-				justification = "left";
+				justification = Justification.LEFT;
 			else if (justifyGroup.isSelected(rightJusty.getModel()))
-				justification = "right";
+				justification = Justification.RIGHT;
 			else;
-				justification = "both";
+				justification = Justification.BOTH;
 		}
 	}
 	
@@ -155,7 +156,7 @@ class OptionsPanel extends JPanel{
 		}
 	}
 	
-	String getJustification() {
+	Justification getJustification() {
 		return justification;
 	}
 	
