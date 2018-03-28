@@ -91,15 +91,9 @@ public class Analyzer
 		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
 		    String line = null;
 		    
-		    if(capsule.getOptions().getJusty() == Justification.LEFT){	// Left Justification
-			    while ((line = reader.readLine()) != null) {
-			    	totalLineLength += line.length();
-			    }
-			    //System.out.println(totalLineLength);
-		    }
-			else	// Right and Both Justification
-			{
-				totalLineLength = lineCount * capsule.getOptions().getMaxLineLength();
+		    // Same for all justifications. Thanks for the easy way out Calliss.
+			while ((line = reader.readLine()) != null) {
+				totalLineLength += line.length();
 			}
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);
