@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import common.Justification;
+
 /**
  * This class assumes the file is already left justified.
  * @author lance
@@ -22,7 +24,7 @@ public class JustyFilter extends FormatFilter {
 	public void format() {
 		
 		//only do anything if right justification is set.
-		if(params.getOpts().getJusty().equalsIgnoreCase("right")) {
+		if(params.getOpts().getJusty() != Justification.LEFT) {
 			int lineLength = params.getOpts().getMaxLineLength();
 			
 			try (BufferedReader reader = Files.newBufferedReader(params.getInFile())) {
@@ -32,10 +34,10 @@ public class JustyFilter extends FormatFilter {
 					while ((curLine = reader.readLine()) != null) {
 						if(curLine.length() < lineLength) {
 							
-							if(params.getOpts().getJusty().equalsIgnoreCase("right"))
+							if(params.getOpts().getJusty() == Justification.RIGHT)
 								writer.write(addToBeginning(curLine, lineLength));
 							
-							if(params.getOpts().getJusty().equalsIgnoreCase("other"))
+							if(params.getOpts().getJusty() == Justification.BOTH)
 								writer.write(addToMiddle(curLine, lineLength));
 							
 						} else {
