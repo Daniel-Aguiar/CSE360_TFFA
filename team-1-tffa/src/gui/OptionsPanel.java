@@ -97,8 +97,6 @@ class OptionsPanel extends JPanel{
 				justification = Justification.RIGHT;
 			else if (justifyGroup.isSelected(bothJusty.getModel()))
 				justification = Justification.BOTH;
-			
-			System.out.println("In opts panel: " + getJustification());
 		}
 	}
 	
