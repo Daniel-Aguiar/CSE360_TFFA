@@ -89,13 +89,12 @@ class OptionsPanel extends JPanel{
 	
 	private class JustyListener implements ActionListener{
 		@Override
-		public void actionPerformed(ActionEvent evt) {
-			
-			if (justifyGroup.isSelected(leftJusty.getModel()))
+		public void actionPerformed(ActionEvent evt) {			
+			if (justifyGroup.isSelected(leftJusty.getModel())) 
 				justification = Justification.LEFT;
 			else if (justifyGroup.isSelected(rightJusty.getModel()))
 				justification = Justification.RIGHT;
-			else;
+			else
 				justification = Justification.BOTH;
 		}
 	}
