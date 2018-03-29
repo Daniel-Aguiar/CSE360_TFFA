@@ -23,6 +23,22 @@ public class JustyFilter extends FormatFilter {
 	@Override
 	public void format() {
 		
+		System.out.println("justy: " + params.getOpts().getJusty());
+		
+//		switch (params.getOpts().getJusty()) {
+//		case LEFT:
+//			System.out.println("left justy");
+//			break;
+//		case RIGHT:
+//			System.out.println("right justy");
+//			break;
+//		case BOTH:
+//			System.out.println("both justy");
+//			break;
+//		
+//		}//end switch
+		
+		
 		//only do anything if right justification is set.
 		if(params.getOpts().getJusty() != Justification.LEFT) {
 			int lineLength = params.getOpts().getMaxLineLength();
@@ -31,28 +47,30 @@ public class JustyFilter extends FormatFilter {
 				try (BufferedWriter writer = Files.newBufferedWriter(params.getOutFile())) {
 					
 					String curLine = null;
+					//this is bad.  There should be justy objects that have justy methods
+					//that are set before this while loop, then polymorphically clled.
 					while ((curLine = reader.readLine()) != null) {
 						if(curLine.length() < lineLength) {
-							
-							if(params.getOpts().getJusty() == Justification.RIGHT)
+							if(params.getOpts().getJusty() == Justification.RIGHT) {
 								writer.write(addToBeginning(curLine, lineLength));
+							}
 							
-							if(params.getOpts().getJusty() == Justification.BOTH)
+							if(params.getOpts().getJusty() == Justification.BOTH) {
+								System.out.println(addToMiddle(curLine, lineLength));
 								writer.write(addToMiddle(curLine, lineLength));
+							}
 							
-						} else {
+						} else { //this is the case where a single word is longer than the line length
 							curLine = curLine + '\n';
 							writer.write(curLine);//end line length check
 						}
 					}//end while
-				}catch (IOException e) {}
+				} catch (IOException e) {}
 			} catch (IOException e) {}
 		} else { //copy the input file to the output file since we didn't do anything.
 			try {
 				Files.copy(params.getInFile(), params.getOutFile(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			} catch (IOException e) {}
 		}//end if-else tree 
 	}//end format()
 	
@@ -98,7 +116,7 @@ public class JustyFilter extends FormatFilter {
 		for(int i = 0; i < words.length; ++i) {
 			output.append(words[i]);
 		}
-		
+		output.append('\n');
 		return output.toString();
 	}//end addToMiddle()
 
