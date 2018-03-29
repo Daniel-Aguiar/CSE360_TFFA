@@ -25,20 +25,6 @@ public class JustyFilter extends FormatFilter {
 		
 		System.out.println("justy: " + params.getOpts().getJusty());
 		
-//		switch (params.getOpts().getJusty()) {
-//		case LEFT:
-//			System.out.println("left justy");
-//			break;
-//		case RIGHT:
-//			System.out.println("right justy");
-//			break;
-//		case BOTH:
-//			System.out.println("both justy");
-//			break;
-//		
-//		}//end switch
-		
-		
 		//only do anything if right justification is set.
 		if(params.getOpts().getJusty() != Justification.LEFT) {
 			int lineLength = params.getOpts().getMaxLineLength();
@@ -56,7 +42,6 @@ public class JustyFilter extends FormatFilter {
 							}
 							
 							if(params.getOpts().getJusty() == Justification.BOTH) {
-								System.out.println(addToMiddle(curLine, lineLength));
 								writer.write(addToMiddle(curLine, lineLength));
 							}
 							
@@ -107,7 +92,7 @@ public class JustyFilter extends FormatFilter {
 			//add a space after the ith word
 			words[wordIdx] = words[wordIdx] + " ";
 			
-			characters = countChars(words);
+			characters++;
 		}//end while
 		
 

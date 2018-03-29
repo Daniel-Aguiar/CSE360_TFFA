@@ -34,6 +34,9 @@ public class LineSpaceFilter extends FormatFilter {
 					lines.set(i, tmp);
 					writer.write(lines.get(i));
 				}
+				writer.write(lines.get(lines.size()-1));
+				//write the last line
+				
 			} catch (IOException e) {}
 		}else {//nothing done so just copy the input file to the output file.
 			try {
