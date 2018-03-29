@@ -45,7 +45,7 @@ public class JustyFilter extends FormatFilter {
 							writer.write(curLine);//end line length check
 						}
 					}//end while
-				}catch (IOException e) {}
+				} catch (IOException e) {}
 			} catch (IOException e) {}
 		} else { //copy the input file to the output file since we didn't do anything.
 			try {
