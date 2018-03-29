@@ -92,7 +92,7 @@ public class JustyFilter extends FormatFilter {
 			//add a space after the ith word
 			words[wordIdx] = words[wordIdx] + " ";
 			
-			characters = countChars(words);
+			characters++;
 		}//end while
 		
 
