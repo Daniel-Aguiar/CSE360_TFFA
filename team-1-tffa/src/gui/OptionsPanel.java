@@ -83,6 +83,7 @@ class OptionsPanel extends JPanel{
 		
 		leftJusty.addActionListener(justListen);
 		rightJusty.addActionListener(justListen);
+		bothJusty.addActionListener(justListen);
 		
 		leftJusty.doClick(); /*Left Justification should be selected by default*/
 	}
@@ -94,8 +95,10 @@ class OptionsPanel extends JPanel{
 				justification = Justification.LEFT;
 			else if (justifyGroup.isSelected(rightJusty.getModel()))
 				justification = Justification.RIGHT;
-			else
+			else if (justifyGroup.isSelected(bothJusty.getModel()))
 				justification = Justification.BOTH;
+			
+			System.out.println("In opts panel: " + getJustification());
 		}
 	}
 	

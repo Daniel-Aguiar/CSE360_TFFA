@@ -92,6 +92,7 @@ public class TFFAGui extends JFrame{
 	public Options getOptions() {
 		Options options = new Options();
 		options.setJusty(opts.getJustification());
+		System.out.println(opts.getJustification());
 		options.setMaxLineLength(opts.getLineLength());
 		options.setSpacing(opts.getSpacing());
 		return options;
