@@ -4,8 +4,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
 
-import common.Justification;
 
 /**
  * This class assumes the file is already left justified.
@@ -23,112 +24,32 @@ public class JustyFilter extends FormatFilter {
 	@Override
 	public void format() {
 		
-		System.out.println("justy: " + params.getOpts().getJusty());
+		iJustify justifier = JustyFactory.getJustifier(params.getOpts().getJusty());  
 		
-		//only do anything if right justification is set.
-		if(params.getOpts().getJusty() != Justification.LEFT) {
-			int lineLength = params.getOpts().getMaxLineLength();
-			
-			try (BufferedReader reader = Files.newBufferedReader(params.getInFile())) {
-				try (BufferedWriter writer = Files.newBufferedWriter(params.getOutFile())) {
+		try (BufferedReader reader = Files.newBufferedReader(params.getInFile())) {
+			try (BufferedWriter writer = Files.newBufferedWriter(params.getOutFile())) {
+				String curLine = null;
 					
-					String curLine = null;
-					//this is bad.  There should be justy objects that have justy methods
-					//that are set before this while loop, then polymorphically clled.
-					while ((curLine = reader.readLine()) != null) {
-						if(curLine.length() < lineLength) {
-							if(params.getOpts().getJusty() == Justification.RIGHT) {
-								writer.write(addToBeginning(curLine, lineLength));
-							}
-							
-							if(params.getOpts().getJusty() == Justification.BOTH) {
-								writer.write(addToMiddle(curLine, lineLength));
-							}
-							
-						} else { //this is the case where a single word is longer than the line length
-							curLine = curLine + '\n';
-							writer.write(curLine);//end line length check
-						}
-					}//end while
-				} catch (IOException e) {}
+				List<String> lines = new ArrayList<>();
+				
+				//put the lines into a list
+				//this allow for finding the last line which does not get a \n
+				for(int i = 0;(curLine = reader.readLine())!= null; ++i) {
+					lines.add(i, curLine);
+				}
+				
+				for(int i = 0; i < lines.size(); ++i) {
+					curLine = justifier.justify(lines.get(i), params.getOpts().getMaxLineLength());
+					
+					if(i < lines.size() - 1) { //if it's not the last line
+						curLine = curLine + '\n';
+					}
+					writer.write(curLine);
+				}
 			} catch (IOException e) {}
-		} else { //copy the input file to the output file since we didn't do anything.
-			try {
-				Files.copy(params.getInFile(), params.getOutFile(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {}
-		}//end if-else tree 
+		} catch (IOException e) {}
 	}//end format()
 	
-	
-	//add a number of spaces to the beginning of the line
-	private String addToBeginning(String curLine, int maxLineLen) {
-		int numSpaces = maxLineLen - curLine.length();
-		
-		StringBuilder spaces = makeSpaces(numSpaces);
-		
-		spaces.append(curLine);
-		spaces.append('\n');
-		
-		return spaces.toString();
-	}//end addToBeginning()
-	
-	
-	//add a number of spaces between words.
-	private static String addToMiddle(String curLine, int maxLineLen) {
-
-		String[] words = curLine.split(" ");
-		int characters = countChars(words);
-		int wordIdx = 0;
-		
-		while(characters < maxLineLen) {
-
-			if(wordIdx >= words.length - 2) {
-				wordIdx = 0;
-			}
-			else {
-				++wordIdx;
-			}
-			
-			//add a space after the ith word
-			words[wordIdx] = words[wordIdx] + " ";
-			
-			characters++;
-		}//end while
-		
-
-		StringBuilder output = new StringBuilder();
-		
-		for(int i = 0; i < words.length; ++i) {
-			output.append(words[i]);
-		}
-		output.append('\n');
-		return output.toString();
-	}//end addToMiddle()
-
-	
-	//creates a StringBuilder containing a number of spaces. 
-	private StringBuilder makeSpaces(int numSpaces ) {
-		StringBuilder spaces = new StringBuilder();
-		
-		for(int i=0;i<numSpaces;++i) {
-			spaces.append(' ');
-		}//end for
-		
-		return spaces;
-		
-	}//end makeSpaces()
-	
-	
-	private static int countChars(String[] words) {
-		
-		int characters = 0;
-		
-		for(int j = 0; j < words.length; ++j) {
-			characters += words[j].length(); 
-		}
-		
-		return characters;
-	}//end countChars()
 	
 }//end class
 
