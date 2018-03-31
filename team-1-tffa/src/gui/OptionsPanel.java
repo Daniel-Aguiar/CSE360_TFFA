@@ -10,7 +10,6 @@ import common.Justification;
 @SuppressWarnings("serial")
 class OptionsPanel extends JPanel{
 	private Justification justification;
-	private int lineLengthInt;
 	private int space;
 	
 	private JRadioButton leftJusty;
@@ -53,13 +52,13 @@ class OptionsPanel extends JPanel{
 		c.anchor = GridBagConstraints.PAGE_END;
 		add(lineLengthLabel, c);
 		
-		lineLengthTextField = new JTextField(3);
+		lineLengthTextField = new JTextField("80", 3);
 		c = new GridBagConstraints();
 		c.gridx = 2;
 		c.insets = new Insets(10,5,0,5);
 		c.anchor = GridBagConstraints.LINE_START;
 		add(lineLengthTextField, c);
-		lineLengthTextField.addKeyListener(new LineLengthListener());
+		//lineLengthTextField.addKeyListener(new LineLengthListener());
 		
 		spacingLabel = new JLabel("Spacing");
 		c = new GridBagConstraints();
@@ -84,32 +83,33 @@ class OptionsPanel extends JPanel{
 		
 		leftJusty.addActionListener(justListen);
 		rightJusty.addActionListener(justListen);
+		bothJusty.addActionListener(justListen);
 		
 		leftJusty.doClick(); /*Left Justification should be selected by default*/
 	}
 	
 	private class JustyListener implements ActionListener{
 		@Override
-		public void actionPerformed(ActionEvent evt) {
-			
-			if (justifyGroup.isSelected(leftJusty.getModel()))
+		public void actionPerformed(ActionEvent evt) {			
+			if (justifyGroup.isSelected(leftJusty.getModel())) 
 				justification = Justification.LEFT;
 			else if (justifyGroup.isSelected(rightJusty.getModel()))
 				justification = Justification.RIGHT;
-			else;
+			else if (justifyGroup.isSelected(bothJusty.getModel()))
 				justification = Justification.BOTH;
 		}
 	}
 	
-	private class LineLengthListener implements KeyListener{
+	/*private class LineLengthListener implements KeyListener{
 		@Override
 		public void keyReleased(KeyEvent e) {
 			String lineLengthString = lineLengthTextField.getText();
 			if (!Character.isDigit(e.getKeyChar())) {
 				if (!isControlKey(e) && lineLengthString.length() != 0)
 					lineLengthTextField.setText(lineLengthString.substring(0,lineLengthString.length()-1));
-			} else
+			} else {
 				lineLengthInt = Integer.parseInt(lineLengthTextField.getText());
+			}
 		}
 		
 		@Override
@@ -122,20 +122,20 @@ class OptionsPanel extends JPanel{
 			boolean retVal = false;
 			int keyCode = e.getKeyCode();
 			if (keyCode == KeyEvent.VK_LEFT) retVal = true;
-			if (keyCode == KeyEvent.VK_UP) retVal = true;
-			if (keyCode == KeyEvent.VK_DOWN) retVal = true;
-			if (keyCode == KeyEvent.VK_RIGHT) retVal = true;
-			if (keyCode == KeyEvent.VK_BACK_SPACE) retVal = true;
-			if (keyCode == KeyEvent.VK_DELETE) retVal = true;
-			if (keyCode == KeyEvent.VK_CONTROL) retVal = true;
-			if (keyCode == KeyEvent.VK_SHIFT) retVal = true;
-			if (keyCode == KeyEvent.VK_ALT) retVal = true;
-			if (keyCode == KeyEvent.VK_ENTER) retVal = true;
-			if (keyCode == KeyEvent.VK_CAPS_LOCK) retVal = true;
-			if (keyCode == KeyEvent.VK_ESCAPE) retVal = true;
+			else if (keyCode == KeyEvent.VK_UP) retVal = true;
+			else if (keyCode == KeyEvent.VK_DOWN) retVal = true;
+			else if (keyCode == KeyEvent.VK_RIGHT) retVal = true;
+			else if (keyCode == KeyEvent.VK_BACK_SPACE) retVal = true;
+			else if (keyCode == KeyEvent.VK_DELETE) retVal = true;
+			else if (keyCode == KeyEvent.VK_CONTROL) retVal = true;
+			else if (keyCode == KeyEvent.VK_SHIFT) retVal = true;
+			else if (keyCode == KeyEvent.VK_ALT) retVal = true;
+			else if (keyCode == KeyEvent.VK_ENTER) retVal = true;
+			else if (keyCode == KeyEvent.VK_CAPS_LOCK) retVal = true;
+			else if (keyCode == KeyEvent.VK_ESCAPE) retVal = true;
 			return retVal;
 		}
-	}
+	} */
 	
 	//This might set the space to be the previously selected option
 	//depending on what the "action" is (button press, or selection
@@ -160,7 +160,9 @@ class OptionsPanel extends JPanel{
 		return justification;
 	}
 	
-	int getLineLength() { return lineLengthInt; }
+	int getLineLength() { return Integer.parseInt(getLineLengthString()); }
 	
 	int getSpacing() { return space; }
+	
+	String getLineLengthString() { return lineLengthTextField.getText(); }
 }

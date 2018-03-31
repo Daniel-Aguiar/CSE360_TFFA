@@ -37,17 +37,28 @@ class FormatExitButtons extends JPanel{
 	private class FormatButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent evt) {
-			FileErrorType error;
+			boolean readyToExecute = true;
 			
+			ErrorType error;			
 			File inputFile = new File(mainFrame.getInputFileName());
-			FileErrorType inputErrorType = FileError.hasFileErrorInput(inputFile, mainFrame.getOutputFileName());
+			ErrorType inputErrorType = Error.hasFileErrorInput(inputFile, mainFrame.getOutputFileName());
 			File outputFile = new File(mainFrame.getOutputFileName());
-			FileErrorType outputErrorType = FileError.hasFileErrorOutput(outputFile, mainFrame.getInputFileName());
+			ErrorType outputErrorType = Error.hasFileErrorOutput(outputFile, mainFrame.getInputFileName());
 			
-			if (inputErrorType != FileErrorType.NONE || outputErrorType != FileErrorType.NONE) {
-				error = (inputErrorType != FileErrorType.NONE) ? inputErrorType : outputErrorType;
-				FileError.showErrorMessage(error, mainFrame);
-			} else
+			if (inputErrorType != ErrorType.NONE || outputErrorType != ErrorType.NONE) {
+				readyToExecute = false;
+				error = (inputErrorType != ErrorType.NONE) ? inputErrorType : outputErrorType;
+				Error.showErrorMessage(error, mainFrame);
+			}
+			
+			ErrorType lineLengthError = Error.hasLineLengthError(mainFrame.getLineLength());
+			
+			if (lineLengthError != ErrorType.NONE) {
+				readyToExecute = false;
+				Error.showErrorMessage(lineLengthError, mainFrame);
+			}
+			
+			if (readyToExecute)
 				mainFrame.startController();
 		}
 	}
