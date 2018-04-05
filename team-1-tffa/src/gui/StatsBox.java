@@ -17,12 +17,12 @@ class StatsBox extends JPanel{
 	StatsBox(LayoutManager layout){
 		
 		// variables for only this branch
-		int WC = 23; // word count
-		int SS = 15; // spaces
-		int TL = 8;  // total lines
+		int WC = 35; // word count
+		int SS = 32; // spaces
+		int TL = 3;  // total lines
 		int BL = 0; // blank lines
-		double aWPL = 2.88; // average words per line
-		double aLL = 23.13; // average lines per line
+		double aWPL = 11.67; // average words per line
+		double aLL = 63.33; // average lines per line
 		
 		
 		setLayout(layout);
