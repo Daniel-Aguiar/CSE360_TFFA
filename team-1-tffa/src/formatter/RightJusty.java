@@ -10,14 +10,14 @@ class RightJusty implements iJustify {
 	 */
 	@Override
 	public String justify(String input, int maxLineLen) {
-		if(input.length() < maxLineLen) {
+		if(input.length() < maxLineLen && input.length() > 1) {
 			int numSpaces = maxLineLen - input.length();
-			
+
 			StringBuilder spaces = makeSpaces(numSpaces);
-			
+		
 			//add a number of spaces to the beginning of the line
 			spaces.append(input);
-			
+		
 			return spaces.toString();
 		}
 		else {
