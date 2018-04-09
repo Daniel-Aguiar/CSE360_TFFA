@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import common.Capsule;
+import common.Justification;
 
 public class Analyzer 
 {
@@ -12,12 +13,12 @@ public class Analyzer
 	private int lineCount;		// Total # of lines
 	private double avgWpL;		// Average words per line
 	private double avgLL;		// Average line length
+	private int spaceCount;		// Total # of spaces
 	private Capsule capsule;	// Capsule that will be updated with new Statistics
 	
-	public Analyzer(Capsule cap)
+	public Analyzer(Capsule cap)	// Constructor
 	{
 		capsule = cap;
-		cap.getOutputFile();
 	}
 	
 	public Capsule analyze()
@@ -26,6 +27,7 @@ public class Analyzer
 		lineCount = countLines();
 		avgWpL = calcAvgWpL();
 		avgLL = calcAvgLL();
+		spaceCount = countSpaces();
 		updateStatistics();
 		return capsule;
 	}
@@ -43,7 +45,7 @@ public class Analyzer
 			    	for(int i = 0; i < split.length; i++)
 			    	{
 			    		if(split[i].equals("")) {
-			    			// Empty indices caused by spaces after right justification. Don't count these.
+			    			// Empty indices caused by spaces. Don't count these.
 			    		} else {
 			    			words++;
 			    		}
@@ -58,25 +60,12 @@ public class Analyzer
 	
 	private int countLines() 
 	{
-//		int lines = 0;
-//		
-//		try (BufferedReader reader = new BufferedReader(new StringReader(outputFile.toString()))) {
-//		    String line = null;
-//		    while ((line = reader.readLine()) != null) {
-//		    	lines++;
-//		    }
-//		} catch (IOException x) {
-//		    System.err.format("IOException: %s%n", x);
-//		}
-//		
-//		return lines;
-		
 		int lines = 0;
 		
 		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())){
 			while (reader.readLine() != null) {
 					lines++;
-			}//end while
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -102,34 +91,9 @@ public class Analyzer
 		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
 		    String line = null;
 		    
-		    if(capsule.getOptions().getJusty().equalsIgnoreCase("left")){
-			    while ((line = reader.readLine()) != null) {
-			    	totalLineLength += line.length();
-			    }
-			    //System.out.println(totalLineLength);
-		    }
-			else
-			{
-				char[] temp;
-				while ((line = reader.readLine()) != null) {
-			    	temp = line.toCharArray();
-			    	
-			    	for(int i=temp.length-1; i>=0;i--)
-			    	{
-			    		if(temp[i] != ' ')
-			    		{
-			    			totalLineLength++;
-			    		}
-			    		else if(temp[i] == ' ' && temp[i-1] == ' ')
-			    		{
-			    			i = -1;
-			    		}
-			    		else {
-			    			totalLineLength++;
-			    		}
-			    	}
-			    }
-				//System.out.println(totalLineLength);
+		    // Same for all justifications. Thanks for the easy way out Calliss.
+			while ((line = reader.readLine()) != null) {
+				totalLineLength += line.length();
 			}
 		} catch (IOException x) {
 		    System.err.format("IOException: %s%n", x);
@@ -141,6 +105,44 @@ public class Analyzer
 		return avgLL;
 	}
 
+	private int countSpaces()
+	{
+		int totalSpaces = 0;
+		int lineLength = 0;
+		int wordsLength = 0;
+		
+		try (BufferedReader reader = Files.newBufferedReader(capsule.getOutputFile())) {
+		    String line = null;
+		    
+		    while ((line = reader.readLine()) != null) {
+			    	lineLength = line.length();	// Current line length (words and spaces)
+			    	
+			    	// Find the length of just the words in the line
+			    	String[] split = line.split(" ");
+			    	for(int i = 0; i < split.length; i++)
+			    	{
+			    		if(split[i].equals("")) {
+			    			// Empty indices caused by spaces. Don't count these.
+			    		} else {
+			    			// Keep running total of the length of all the words in the current line
+			    			wordsLength += split[i].length();
+			    		}
+			    	}
+			    	
+			    	// total spaces in current line = current line length - length of all words in current line
+			    	// Add the number of spaces in the current line to running total
+			    	totalSpaces += lineLength - wordsLength;
+			    	
+			    	lineLength = 0;		// Reset current line length
+			    	wordsLength = 0;	// Reset length of all words in current line
+		    }
+		} catch (IOException x) {
+		    System.err.format("IOException: %s%n", x);
+		}
+		
+		return totalSpaces;
+	}
+	
 	private void updateStatistics()
 	{
 		capsule.getStatistics().setTotalWords(wordCount);
@@ -148,5 +150,6 @@ public class Analyzer
 		// Blank lines removed has already been filled in by Formatter.
 		capsule.getStatistics().setAvgWpL(avgWpL);
 		capsule.getStatistics().setAvgLL(avgLL);
+		capsule.getStatistics().setTotalSpaces(spaceCount);
 	}
 }

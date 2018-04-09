@@ -2,7 +2,6 @@ package gui;
 
 import java.awt.*;
 import java.net.URL;
-
 import javax.swing.*;
 import common.*;
 import controller.*;
@@ -12,7 +11,7 @@ public class TFFAGui extends JFrame{
 	private static boolean RESIZABLE = false;
 	
 	private FileIOPanel filePanel;
-	private JustifyPanel justy;
+	private OptionsPanel opts;
 	private FormatExitButtons bottomButtons;
 	private StatsBox statsPanel;
 
@@ -22,9 +21,9 @@ public class TFFAGui extends JFrame{
 		pane.add(filePanel, arrangement);
 	}
 
-	private void createJustifyButtons(Container pane, GridBagConstraints arrangement) {
-		justy = new JustifyPanel(new GridBagLayout());
-		pane.add(justy, arrangement);
+	private void createOptionsPanel(Container pane, GridBagConstraints arrangement) {
+		opts = new OptionsPanel(new GridBagLayout());
+		pane.add(opts, arrangement);
 	}
 
 	private void createFormatAndExitButtons(Container pane, GridBagConstraints arrangement) {
@@ -55,7 +54,7 @@ public class TFFAGui extends JFrame{
 		c.gridx = 0;
 		c.gridy = 0;
 		c.insets = new Insets(25, 0, 60, 0);
-		createJustifyButtons(bottomHalfOfFrame, c);
+		createOptionsPanel(bottomHalfOfFrame, c);
 
 		c = new GridBagConstraints();
 		c.gridx = 0;
@@ -68,7 +67,7 @@ public class TFFAGui extends JFrame{
 		c.gridy = 0;
 		c.gridheight = 2;
 		c.anchor = GridBagConstraints.CENTER;
-		c.insets = new Insets(10, 58, 0, 0);
+		c.insets = new Insets(0, 20, 0, 0);
 		createStatsBox(bottomHalfOfFrame, c);
 
 		c = new GridBagConstraints();
@@ -76,8 +75,9 @@ public class TFFAGui extends JFrame{
 		c.anchor = GridBagConstraints.LINE_START;
 		getContentPane().add(bottomHalfOfFrame, c);
 
-		setSize(600, 350);
+		setSize(675, 400);
 		setTitle("Text File Formatter and Analizer");
+		setIcon();
 		setVisible(true);
 	}
 	
@@ -90,9 +90,11 @@ public class TFFAGui extends JFrame{
 	}
 	
 	public Options getOptions() {
-		Options opts = new Options();
-		opts.setJusty(justy.getJustification());
-		return opts;
+		Options options = new Options();
+		options.setJusty(opts.getJustification());
+		options.setMaxLineLength(opts.getLineLength());
+		options.setSpacing(opts.getSpacing());
+		return options;
 	}
 	
 	void startController() {
@@ -101,8 +103,10 @@ public class TFFAGui extends JFrame{
 		addStats(cap.getStatistics());
 	}
 	
+	String getLineLength() { return opts.getLineLengthString(); }
+	
 	private void setIcon() {
-	    URL iconURL = getClass().getResource("coolicon.png");
+	    URL iconURL = getClass().getResource("Teapot.png");
 	    
 	    if(iconURL != null) {
 	        this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));

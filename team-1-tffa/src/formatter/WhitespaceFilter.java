@@ -19,16 +19,23 @@ public class WhitespaceFilter extends FormatFilter {
 
 	@Override
 	public void format() {
+		
+		
 		//same code structure here from CountBlanksFilter 
 		try (Stream<String> lines = Files.lines(params.getInFile())) {
-			   List<String> replaced = lines
-			       .map(line-> line.replaceAll("\\s{2,}", " ")) //regex to match 2 or more spaces and replace with 1
-			       .map(line-> line.replaceAll("\\t", " ")) //replace tabs with spaces.
-			       .collect(Collectors.toList());
-			   Files.write(params.getOutFile(), replaced);
-			}catch (IOException e) {
-				  e.printStackTrace();
-			}
+		   List<String> replaced = lines
+		       .map(line-> line.replaceAll("\\s{2,}", " ")) //regex to match 2 or more spaces and replace with 1
+		       .map(line-> line.replaceAll("\\t", " ")) //replace tabs with spaces.
+		       .collect(Collectors.toList());
+			   
+		   //remove the last space if there is one.
+		   if (replaced.get(0).lastIndexOf(' ') == replaced.get(0).length() - 1)
+			   replaced.set(0, replaced.get(0).substring(0,replaced.get(0).lastIndexOf(' ')));
+			   
+		   Files.write(params.getOutFile(), replaced.get(0).getBytes());
+		}catch (IOException e) {
+			  e.printStackTrace();
+		}
 
 	}//end format()
 

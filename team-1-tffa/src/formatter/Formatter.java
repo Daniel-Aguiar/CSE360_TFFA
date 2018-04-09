@@ -59,6 +59,7 @@ public class Formatter {
 	
 	/**
 	 * This sets the order for the format filters.
+	 * Really should have this as a builder or at least some kind of factory.
 	 * @return
 	 * A List<FormatFilter> that is to be executed in the order of their index. 
 	 */
@@ -80,7 +81,7 @@ public class Formatter {
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(caps.getInputFile());
+		params.setInFile(caps.getInputFile()); 
 		outfile = Paths.get("1cr");
 		params.setOutFile(outfile);
 		output.add(new RemoveCRFilter(params));
@@ -89,24 +90,37 @@ public class Formatter {
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
-		params.setInFile(outfile);
+		params.setInFile(outfile); 
+		//input file is output file of previous filter
 		outfile = Paths.get("2ws");
-		params.setOutFile(outfile);
+		params.setOutFile(outfile); 
 		output.add(new WhitespaceFilter(params));
 		
 		//ensure proper line length
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
+		//input file is output file of previous filter
 		params.setInFile(outfile);
 		outfile = Paths.get("3ll");
 		params.setOutFile(outfile);
 		output.add(new LineLengthFilter(params));
 		
+		//set  line spacing
+		params = new FilterParams();
+		params.setOpts(opts);
+		params.setStats(stats);
+		//input file is output file of previous filter
+		params.setInFile(outfile);
+		outfile = Paths.get("4ls");
+		params.setOutFile(outfile);
+		output.add(new LineSpaceFilter(params));
+		
 		//justify
 		params = new FilterParams();
 		params.setOpts(opts);
 		params.setStats(stats);
+		//input file is output file of previous filter
 		params.setInFile(outfile);
 		params.setOutFile(caps.getOutputFile());
 		output.add(new JustyFilter(params));

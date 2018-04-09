@@ -2,12 +2,20 @@ package common;
 
 public class Options {
 
-	private String justy;
+	private Justification justy;
 	private int maxLineLength;
 	private int spacing;
 
 	public int getSpacing() {
 		return spacing;
+	}
+
+	public Justification getJusty() {
+		return justy;
+	}
+
+	public void setJusty(Justification justy) {
+		this.justy = justy;
 	}
 
 	public void setSpacing(int spacing) {
@@ -18,18 +26,12 @@ public class Options {
 	public Options() {}
 
 	/* Setters */
-	public void setJusty(String justy) {
-		this.justy = justy;
-	}
 
 	public void setMaxLineLength(int linelength) {
 		this.maxLineLength = linelength;
 	}
 
 	/* Getters */
-	public String getJusty() {
-		return this.justy;
-	}
 
 	public int getMaxLineLength() {
 		return this.maxLineLength;
@@ -68,3 +70,4 @@ public class Options {
 	
 
 }//end Options class
+
