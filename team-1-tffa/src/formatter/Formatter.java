@@ -41,17 +41,21 @@ public class Formatter {
 	 */
 	public Capsule formatInputFile() {
 		
-		List<FormatFilter> goList;
+		if(!teapotCheck(opts)) {
 		
-		goList = buildGoList();
-		
-		//iterate through the list and apply each filter.
-		//this version of a for loop ensures the proper order.
-		//a for-each loop might not execute the the right order.
-		for(int i=0; i < goList.size(); ++i) {
-			goList.get(i).format();
+			List<FormatFilter> goList;
+			
+			goList = buildGoList();
+			
+			
+			
+			//iterate through the list and apply each filter.
+			//this version of a for loop ensures the proper order.
+			//a for-each loop might not execute the the right order.
+			for(int i=0; i < goList.size(); ++i) {
+				goList.get(i).format();
+			}
 		}
-		
 		return caps;
 	}//end formatInFile()
 		
@@ -129,4 +133,10 @@ public class Formatter {
 		
 	}//end buildGoList()
 	
+	private boolean teapotCheck(Options opts) {
+		return false;
+	}
+	
 }//end class
+
+
