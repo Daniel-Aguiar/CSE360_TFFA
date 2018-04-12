@@ -6,6 +6,8 @@ import javax.swing.*;
 import common.*;
 import controller.*;
 
+import javax.sound.sampled.*;
+
 @SuppressWarnings("serial")
 public class TFFAGui extends JFrame{
 	private static boolean RESIZABLE = false;
@@ -101,6 +103,12 @@ public class TFFAGui extends JFrame{
 		Controller cont = Controller.getInstance();
 		Capsule cap = cont.goFormat(this);
 		addStats(cap.getStatistics());
+		Options opts = cap.getOptions();
+		if (opts.getMaxLineLength() == 1729 && opts.getJusty() == Justification.RIGHT && opts.getSpacing() == 2 && cap.getOutputFile().toString().equals("teapot.txt"))
+			try { teapot(); }
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 	}
 	
 	String getLineLength() { return opts.getLineLengthString(); }
@@ -112,6 +120,17 @@ public class TFFAGui extends JFrame{
 	        this.setIconImage(Toolkit.getDefaultToolkit().getImage(iconURL));
 	    }
 	}//end setIcon
+	
+	private void teapot() throws Exception{
+        // getAudioInputStream() also accepts a File or InputStream
+        AudioInputStream ais = AudioSystem.getAudioInputStream( getClass().getResource("teapot.wav") );
+        AudioFormat format = ais.getFormat();
+        DataLine.Info info = new DataLine.Info(Clip.class, format);
+        Clip clip = (Clip) AudioSystem.getLine(info);
+        clip.open(ais);
+        // loop continuously
+        clip.loop(-1);
+	}
 }
 
 
