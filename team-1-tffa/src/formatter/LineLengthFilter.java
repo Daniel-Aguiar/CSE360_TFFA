@@ -34,9 +34,9 @@ public class LineLengthFilter extends FormatFilter {
 				if(end < 0) { //it found a word that was MaxLineLen characters or longer
 					end = replaceNextSpace(bytes, start + lineLen);
 				}
-				
 				start = end;
 				end += lineLen;
+				
 			}//end while
 			
 		} catch (IOException e) {
@@ -90,6 +90,7 @@ public class LineLengthFilter extends FormatFilter {
 	 * the index of the previous space or -1 if a '\n' was encountered first.
 	 */
 	private int replaceNextSpace(byte[] A, int idx) {
+		
 		//find the next space or '\n'
 		while(idx < A.length && A[idx] != ' ') {
 			idx += 1;
@@ -97,7 +98,7 @@ public class LineLengthFilter extends FormatFilter {
 		
 		//Check to see if we fell off the end of the array
 		if(idx >= A.length) {
-			idx = -1;
+			idx = A.length;
 		} else {
 			A[idx] = '\n';
 		}
