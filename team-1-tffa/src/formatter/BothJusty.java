@@ -9,7 +9,7 @@ class BothJusty implements iJustify {
 	@Override
 	public String justify(String input, int maxLineLen) {
 		//check for the one big word condition 
-		if(input.length() < maxLineLen) {
+		if(input.length() < maxLineLen && input.length() > 1) {
 			String[] words = input.split(" ");
 			int characters = countChars(words);
 			int wordIdx = 0;

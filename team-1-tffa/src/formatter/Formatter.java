@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.Capsule;
+import common.Justification;
 import common.Options;
 import common.Statistics;
 
@@ -41,16 +42,28 @@ public class Formatter {
 	 */
 	public Capsule formatInputFile() {
 		
-		List<FormatFilter> goList;
+		if(!teapotCheck()) {
 		
-		goList = buildGoList();
-		
-		//iterate through the list and apply each filter.
-		//this version of a for loop ensures the proper order.
-		//a for-each loop might not execute the the right order.
-		for(int i=0; i < goList.size(); ++i) {
-			goList.get(i).format();
+			List<FormatFilter> goList;
+			
+			goList = buildGoList();
+			
+			//iterate through the list and apply each filter.
+			//this version of a for loop ensures the proper order.
+			//a for-each loop might not execute the the right order.
+			for(int i=0; i < goList.size(); ++i) {
+				goList.get(i).format();
+			}
+		} else {//handle the teapot case
+			FilterParams params = new FilterParams();
+			params.setOpts(opts);
+			params.setStats(stats);
+			params.setInFile(caps.getInputFile());
+			params.setOutFile(Paths.get("teapot.txt"));
+			FormatFilter teapotFtl = new CountBlanksFilter(params);
+			teapotFtl.format();
 		}
+		
 		
 		return caps;
 	}//end formatInFile()
@@ -129,4 +142,28 @@ public class Formatter {
 		
 	}//end buildGoList()
 	
+	private boolean teapotCheck() {
+		
+//		line len  = 1729
+//		output file = teapot.txt
+//		right justy
+//		double spaced
+		
+		boolean flag = false;
+		
+		if(this.caps.getOptions().getMaxLineLength() == 1729) {
+			if(this.caps.getOutputFile().equals("teapot.txt")) {
+				if(this.caps.getOptions().getJusty() == Justification.RIGHT) {
+					if(this.caps.getOptions().getSpacing() == 2) {
+						flag = true;
+					}
+				}
+			}
+		}//end obnoxious if tree 
+		
+		return flag;
+	}
+	
 }//end class
+
+

@@ -24,7 +24,7 @@ public class LineSpaceFilter extends FormatFilter {
 				char[] breaks = new char[params.getOpts().getSpacing()];
 				
 				//put in as many breaks as needed
-				Arrays.fill(breaks,  '\n');
+				Arrays.fill(breaks, '\n');
 				
 				String tmp; 
 				
