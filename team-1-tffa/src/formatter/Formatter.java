@@ -48,8 +48,6 @@ public class Formatter {
 			
 			goList = buildGoList();
 			
-			
-			
 			//iterate through the list and apply each filter.
 			//this version of a for loop ensures the proper order.
 			//a for-each loop might not execute the the right order.
@@ -61,6 +59,7 @@ public class Formatter {
 			params.setOpts(opts);
 			params.setStats(stats);
 			params.setInFile(caps.getInputFile());
+			params.setOutFile(Paths.get("teapot.txt"));
 			FormatFilter teapotFtl = new CountBlanksFilter(params);
 			teapotFtl.format();
 		}

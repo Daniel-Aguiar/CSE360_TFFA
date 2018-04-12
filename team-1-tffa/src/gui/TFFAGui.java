@@ -104,7 +104,7 @@ public class TFFAGui extends JFrame{
 		Capsule cap = cont.goFormat(this);
 		addStats(cap.getStatistics());
 		Options opts = cap.getOptions();
-		if (opts.getMaxLineLength() == 1729 && opts.getJusty() == Justification.RIGHT && opts.getSpacing() == 2 && cap.getOutputFile().toString().equals("teapot.txt"))
+		if (opts.getMaxLineLength() == 1729 && opts.getJusty() == Justification.RIGHT && opts.getSpacing() == 2 && cap.getOutputFile().getFileName().toString().equals("teapot.txt"))
 			try { teapot(); }
 			catch (Exception e) {
 				e.printStackTrace();

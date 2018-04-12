@@ -59,8 +59,8 @@ public class TeapotFilter extends FormatFilter {
 				"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\n",
 				"MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"};
 		
-			Path theTeapotFile = Paths.get("teapot.txt");
-			try (BufferedWriter writer = Files.newBufferedWriter(theTeapotFile)) {
+			
+			try (BufferedWriter writer = Files.newBufferedWriter(params.getOutFile())) {
 				for(int i = 0; i < teapot.length; ++i) {
 					writer.append(teapot[i]);
 				}
