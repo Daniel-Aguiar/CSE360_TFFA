@@ -45,13 +45,13 @@ class FormatExitButtons extends JPanel{
 			File outputFile = new File(mainFrame.getOutputFileName());
 			ErrorType outputErrorType = Error.hasFileErrorOutput(outputFile, mainFrame.getInputFileName());
 			
+			ErrorType lineLengthError = Error.hasLineLengthError(mainFrame.getLineLength());
+			
 			if (inputErrorType != ErrorType.NONE || outputErrorType != ErrorType.NONE) {
 				readyToExecute = false;
 				error = (inputErrorType != ErrorType.NONE) ? inputErrorType : outputErrorType;
 				Error.showErrorMessage(error, mainFrame);
 			}
-			
-			ErrorType lineLengthError = Error.hasLineLengthError(mainFrame.getLineLength());
 			
 			if (lineLengthError != ErrorType.NONE) {
 				readyToExecute = false;

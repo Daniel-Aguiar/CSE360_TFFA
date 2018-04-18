@@ -100,43 +100,6 @@ class OptionsPanel extends JPanel{
 		}
 	}
 	
-	/*private class LineLengthListener implements KeyListener{
-		@Override
-		public void keyReleased(KeyEvent e) {
-			String lineLengthString = lineLengthTextField.getText();
-			if (!Character.isDigit(e.getKeyChar())) {
-				if (!isControlKey(e) && lineLengthString.length() != 0)
-					lineLengthTextField.setText(lineLengthString.substring(0,lineLengthString.length()-1));
-			} else {
-				lineLengthInt = Integer.parseInt(lineLengthTextField.getText());
-			}
-		}
-		
-		@Override
-		public void keyPressed(KeyEvent e) {}
-		
-		@Override
-		public void keyTyped(KeyEvent e) {}
-		
-		boolean isControlKey(KeyEvent e) {
-			boolean retVal = false;
-			int keyCode = e.getKeyCode();
-			if (keyCode == KeyEvent.VK_LEFT) retVal = true;
-			else if (keyCode == KeyEvent.VK_UP) retVal = true;
-			else if (keyCode == KeyEvent.VK_DOWN) retVal = true;
-			else if (keyCode == KeyEvent.VK_RIGHT) retVal = true;
-			else if (keyCode == KeyEvent.VK_BACK_SPACE) retVal = true;
-			else if (keyCode == KeyEvent.VK_DELETE) retVal = true;
-			else if (keyCode == KeyEvent.VK_CONTROL) retVal = true;
-			else if (keyCode == KeyEvent.VK_SHIFT) retVal = true;
-			else if (keyCode == KeyEvent.VK_ALT) retVal = true;
-			else if (keyCode == KeyEvent.VK_ENTER) retVal = true;
-			else if (keyCode == KeyEvent.VK_CAPS_LOCK) retVal = true;
-			else if (keyCode == KeyEvent.VK_ESCAPE) retVal = true;
-			return retVal;
-		}
-	} */
-	
 	//This might set the space to be the previously selected option
 	//depending on what the "action" is (button press, or selection
 	//from the drop down, or both)
@@ -160,7 +123,9 @@ class OptionsPanel extends JPanel{
 		return justification;
 	}
 	
-	int getLineLength() { return Integer.parseInt(getLineLengthString()); }
+	int getLineLength() {
+		return Integer.parseInt(getLineLengthString());
+	}
 	
 	int getSpacing() { return space; }
 	

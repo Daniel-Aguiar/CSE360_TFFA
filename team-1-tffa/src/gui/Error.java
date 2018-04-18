@@ -25,6 +25,10 @@ class Error{
 			JOptionPane.showMessageDialog(parent, "Error: Line length must contain a positive integer", "Error",  JOptionPane.ERROR_MESSAGE);
 			break;
 			
+		case LINE_LENGTH_TOO_BIG:
+			JOptionPane.showMessageDialog(parent, "The line length is too large", "Error", JOptionPane.ERROR_MESSAGE);
+			break;
+			
 		case ERROR:
 			JOptionPane.showMessageDialog(parent, "An error occurred", "Error", JOptionPane.ERROR_MESSAGE);
 			break;
@@ -104,8 +108,16 @@ class Error{
 	
 	static ErrorType hasLineLengthError(String lineLength) {
 		ErrorType error = ErrorType.NONE;
-		if (lineLength.matches("0*")) error = ErrorType.LINE_LENGTH_ERROR;
-		else if (!lineLength.matches("[0-9]+")) error = ErrorType.LINE_LENGTH_ERROR;
+		if (!lineLength.matches("[1-9][0-9]*")) error = ErrorType.LINE_LENGTH_ERROR;
+		else{
+			try {
+				Integer.parseInt(lineLength);
+			}catch (NumberFormatException e) {
+				error = ErrorType.LINE_LENGTH_TOO_BIG;
+				//e.printStackTrace();
+			}
+		}
+		
 		return error;
 	}
 }
