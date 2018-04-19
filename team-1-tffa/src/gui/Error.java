@@ -114,7 +114,7 @@ class Error{
 				Integer.parseInt(lineLength);
 			}catch (NumberFormatException e) {
 				error = ErrorType.LINE_LENGTH_TOO_BIG;
-				//e.printStackTrace();
+				e.printStackTrace();
 			}
 		}
 		
