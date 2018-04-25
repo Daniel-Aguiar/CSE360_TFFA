@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import common.Capsule;
-import common.Justification;
 
 public class Analyzer 
 {

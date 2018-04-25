@@ -42,6 +42,8 @@ public class Formatter {
 	 */
 	public Capsule formatInputFile() {
 		
+		
+		
 		if(!teapotCheck()) {
 		
 			List<FormatFilter> goList;
@@ -59,8 +61,8 @@ public class Formatter {
 			params.setOpts(opts);
 			params.setStats(stats);
 			params.setInFile(caps.getInputFile());
-			params.setOutFile(Paths.get("teapot.txt"));
-			FormatFilter teapotFtl = new CountBlanksFilter(params);
+			params.setOutFile(caps.getOutputFile()); //it has to end in teapot to get here
+			FormatFilter teapotFtl = new TeapotFilter(params);
 			teapotFtl.format();
 		}
 		
@@ -144,6 +146,7 @@ public class Formatter {
 	
 	private boolean teapotCheck() {
 		
+		
 //		line len  = 1729
 //		output file = teapot.txt
 //		right justy
@@ -152,7 +155,7 @@ public class Formatter {
 		boolean flag = false;
 		
 		if(this.caps.getOptions().getMaxLineLength() == 1729) {
-			if(this.caps.getOutputFile().equals("teapot.txt")) {
+			if(this.caps.getOutputFile().getFileName().toString().equals("teapot.txt")) {
 				if(this.caps.getOptions().getJusty() == Justification.RIGHT) {
 					if(this.caps.getOptions().getSpacing() == 2) {
 						flag = true;
